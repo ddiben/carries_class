@@ -1,0 +1,24 @@
+<!doctype html>
+{% load static %}
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Carries Class Login</title>
+<link href="{% static 'cc/styles/main.css' %}" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Fugaz+One|Lobster|Pangolin|Permanent+Marker" rel="stylesheet">
+</head>
+
+<body class="login-body" style="background-image: url({% static 'cc/images/login-background-crow.png' %})">
+	<div class="login-layout">
+		<div class="login-wrapper">
+			<h2 class="login-header">Carrie's Class</h2>
+			<form class="login-form" action="/login/" method="post" >
+				<div class="login-input-label">login key:</div>
+				{% csrf_token %}
+				{{ form }}
+				<input class="login-submit" type="submit" value="enter"/>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

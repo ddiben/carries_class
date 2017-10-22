@@ -1,0 +1,12 @@
+*.pyc
+*.pyo
+*.egg
+*.egg-info
+*~
+/static
+.DS_Store
+.project
+.pydevproject
+.cc3_project
+__pycache__
+

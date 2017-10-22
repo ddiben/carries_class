@@ -1,0 +1,377 @@
+* {
+	margin: 0;
+	padding: 0;
+	z-index: 0;
+}
+
+/* Main page contents */
+body {
+	
+}
+
+.site-body {
+	background-color: #333;
+	padding-left: 2%;
+	padding-right: 2%;
+	padding-top: 1%;
+	padding-bottom: 1%;
+}
+
+.upper-wrapper {
+	display: flex;
+	flex-direction: column;
+	margin: 0px;
+}
+
+	.header-and-image {
+		display: flex;
+		flex-direction: row;
+	}
+
+		.header-image-gap {
+			width: auto;
+		}
+
+		.header-welcome {
+			display: flex;
+			align-content: flex-end;
+			width: 80%;
+			height: 15vw;
+			color: darkslateblue;
+			text-align: left;
+			vertical-align: text-bottom;
+			font-size: 13vw;
+			font-family: 'Lobster', cursive;
+			
+			position: relative;
+		}
+
+			#header-text {
+				position: absolute;
+				bottom: 0;
+				line-height: .785em;
+			}
+
+		.page-image {
+			width: 20%;
+			height: 15vw;
+			background-color: cornflowerblue;
+		}
+
+	/* navbar */
+
+	.navbar {
+		background: green;
+		margin-bottom: 1vw;
+		margin-top: 1vw;
+	}
+
+		.navbar-layout {
+			width: 100%;
+		
+			display: flex;
+			flex-wrap: nowrap;
+			
+			background: blue;
+			margin: 0;
+		}
+
+			.navitem {
+				display: flex;
+				flex-grow: 1;
+				justify-content: center;
+				align-items: center;
+				text-align: center;
+				height: 100%;
+				width: 8%;
+				padding-left: 1vw;
+				padding-right: 1vw;
+				font-family: 'Lobster', cursive;
+				font-size: 4vw;
+				
+				background-color: #333;
+				transition: background-color .5s linear;
+				
+			}
+				.navitem:hover {
+					background-color: cornflowerblue ;
+				}
+
+				.anchor {
+					display: block;
+					color: whitesmoke;
+					text-decoration: none;
+				}
+
+				.active {
+					background-color: cornflowerblue;
+				}
+
+	.navgap-left {
+	width: 10%;
+	background-color: #333;
+	}
+
+	.navgap-right {
+	width: 10%;
+	background-color: #333;
+	}		
+
+.lower-wrapper {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+}
+
+	.main-content {
+		display: flex;
+		width: 80%;
+	}
+
+	#lowest-banner-image {
+		margin-top: 1vw;
+		background-color: skyblue;
+		width: 100%;
+		height: 15vw;
+	}
+  
+		/* Home page content */
+
+		#monthly-post {
+			color: black;
+			padding: 2vw;
+			background: #5B5B5B;
+		}
+			#monthly-header {
+				margin-bottom: 2vmin;
+				font-size: 4vw;
+				font-family: 'Lobster', cursive;
+				color: #0F0F0F;
+				line-height: .75em;
+			}
+
+			#monthly-text {
+				font-size: 2vw;
+			}
+
+		#homework {
+			font-style: 'Lobster', cursive;
+			background-color: #5B5B5B;
+			padding: 2vw;
+			margin-top: 1vw;
+		}
+			#homework-header {
+				font-family: 'Lobster', cursive;
+				font-size: 4vw;
+				margin-bottom: 1vw;
+			}
+
+			#calendar {
+				font-family: 'Waiting for the Sunrise';
+				font-size: 2vw;
+			}
+
+				.fc button {
+					display: block;
+					background: cornflowerblue;
+				}
+
+				.fc-icon-my-previous:after {
+					content: "\02039";
+					font-weight: bold;
+					font-size: 200%;
+					top: -7%;
+					color: black;
+				}
+
+				.fc-icon-my-next:after {
+					content: "\0203A";
+					font-weight: bold;
+					font-size: 200%;
+					top: -7%;
+					color: black;
+				}
+
+				.fc h2 { /* this the title of the calendar */
+					text-align: center;
+					margin: 0;
+					font-size: 4.5vw;
+					line-height: 1em;
+				}
+
+				.fc td {  /* these are the dates */
+					font-size: 3vw;
+					line-height: 1em;
+				}
+
+				.fc-today {
+					border-top: white;
+					opacity: .99;
+					border-top-width: 1px;
+					background-color: #4A5467 !important;
+				}
+
+.hover-text-container {
+	display: flex;
+	flex-direction: column;
+	width:20vw;
+	height:auto;
+	background:black;
+	color:white;
+	position:absolute;
+	z-index:10001;
+	line-height: 1em;
+	overflow: auto;
+	font-family: 'Waiting for the Sunrise';
+	padding: .5vw;
+	border-radius: .5vw;
+}
+
+.hover-text-title {
+	text-align: center;
+	background: cornflowerblue;
+	height: 100%;
+	color: white;
+	font-size: 2vw;
+	margin-bottom: .5vw;
+	border-radius: .25vw;
+}
+
+.hover-text-description {
+	text-align: left;
+	height: 100%;
+	overflow: auto;
+	color: white;
+	font-size: 2vw;
+}
+
+
+/* FAQ */
+
+/* Bio */
+
+/* Parents */
+
+/* Links */
+
+/* Photos */
+
+/* Log in screen */ 
+
+.login-body {
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-attachment: fixed;
+	background-size: cover;
+	margin: 0px;
+}
+
+.login-layout {
+	display: grid;
+	grid-template-columns: repeat(100, 1fr);
+	grid-template-rows: repeat(100, 1vh);
+}
+
+	.login-wrapper {
+		grid-column: 57 / 87;
+		grid-row: 29 / 66;
+		display: flex;
+		flex-direction: column;
+		align-content: space-around;
+		background-color: #100F11;
+		border-radius: 2vmin;
+	}
+
+		.login-header {
+			text-align: center;
+			font-family: 'Lobster', cursive;
+			font-size: 7vmin;
+			color: whitesmoke;
+			flex: 20;
+			padding: 1vmin;
+		}
+
+		.login-form {
+			display: flex;
+			flex-wrap: wrap;
+			flex: 80;
+			align-items: center;
+			justify-content: center;
+			max-height: 100%;
+			padding-bottom: 2.5vmin;
+		}
+
+			.login-input-label {
+				font-family: 'Lobster', cursive;
+				color: whitesmoke;
+				font-size: 5.25vmin;
+			}
+
+			.login-input {
+				box-sizing: border-box;
+				width: 45vmin;
+				max-width: 96%;
+				font-size: 2.5vmin;
+				border-radius: 3px;
+				margin-left: 2vmin;
+				margin-right: 2vmin;
+				margin-bottom: 1vmin;
+			}
+
+				::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+				  color: red;
+				  text-align: center;
+				  opacity: .5;
+				  transition: opacity 500ms ease-in-out;
+				}
+					:focus::-webkit-input-placeholder {
+					opacity: .0;
+					}
+				:-ms-input-placeholder { /* IE 10+ */
+				  color: red;
+				  opacity: .5;
+				}
+					:focus:-ms-input-placeholder {
+						opacity: 0;
+					}
+				::-moz-placeholder { /* Firefox 19+ */
+				  color: red;
+				  opacity: .5;
+				}
+					:focus::-moz-placeholder {
+						opacity: .0;
+					}
+				:-moz-placeholder { /* Firefox 18- */
+				  color: red;
+				  opacity: .5;
+				}
+					:focus:-moz-placeholder {
+						opacity: 0;
+					}
+
+			.login-submit {
+				box-sizing: border-box;
+				padding-left: 2vmin;
+				padding-right: 2vmin;
+				font-size: 2.65vmin;
+				color: whitesmoke;
+				border-radius: 5px;
+				font-family: 'Lobster', cursive;
+				background: #BADAF2;
+			}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
