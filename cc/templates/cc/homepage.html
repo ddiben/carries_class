@@ -25,9 +25,10 @@
 				events: {
 					googleCalendarId: 'smq2sqv1jpgausbjqgl0dc4vtk@group.calendar.google.com',
 					color: 'cornflowerblue',
+					className: 'calendarEvents'
 				},
 				allDayDefault: true,
-				editable: true,
+				editable: false,
 				header: {
 					left: '',
 					center: 'prev, title, next',
@@ -37,10 +38,13 @@
 					prev: 'my-previous',
 					next: 'my-next',
 				},
+				eventClick: function(calEvent, jsEvent, view) {
+					return false;
+				},
 				fixedWeekCount: false,
 				eventMouseover: function (data, event, view) {
 
-					tooltip = '<div class="hover-text-container"><div class="hover-text-title">' + data.title + '</div><div class="hover-text-description">' + data.description + '</div></div>';
+					tooltip = '<div class="hover-text-container" style="font-size:' + $(this).css('font-size') + ';line-height:'+ $(this).css('line-height') +';"><div class="hover-text-title">' + data.title + '</div><div class="hover-text-description"><p>' + data.description + '</p></div></div>';
 						
 					var p = $(this).offset();
 					var w = $(this).width()/2;
@@ -61,14 +65,15 @@
 		});	
 	</script>
 </head>
-
-<body class="site-body">
+<body>
+<div class="site-border"></div>
+<div class="site-body">
 	<div class="upper-wrapper">
 		<div class="header-and-image">
 			<div class="header-gap"></div>
 			<div class="header-welcome"><span id="header-text">Carrie's Class</span></div>
 			<div class="header-image-gap"></div>
-			<div class="page-image">pageimage</div>
+			<div class="page-image"></div>
 		</div>
 		<div class="navbar">
 			
@@ -90,11 +95,13 @@
 				<p class="paragraphtext" id="monthly-text"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur mollis gravida ligula convallis volutpat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Ut ipsum justo, auctor vitae lacus eget, viverra mollis turpis. Donec quis purus quis est porttitor fringilla. Donec pharetra imperdiet ante vel pharetra. Aenean id aliquet urna. Quisque eget laoreet nisi. Sed interdum orci neque, id sodales neque semper in.</p>
 			</div>
 			<div id="homework">
-				<h2 id="homework-header">Homework</h2>
+				<h2 id="homework-header"></h2>
 				<div id="calendar"></div>
 			</div>
 		</div>
 	</div>
 	<div id="lowest-banner-image"></div>
+</div>
+<div class="site-border"></div>
 </body>
 </html>
