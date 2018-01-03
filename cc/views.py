@@ -7,7 +7,7 @@ from django.http.response import HttpResponseRedirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 
-from .models import BlogPosts, Links
+from .models import MonthlyPosts, Links
 from .forms import LoginForm, LoginAgainForm
 
 @login_required

@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 
-class BlogPosts(models.Model):
+class MonthlyPosts(models.Model):
     title = models.CharField(max_length=(300),)
     text = models.TextField()
     publish_date = models.DateField()

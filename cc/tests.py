@@ -1,9 +1,8 @@
 from django.test import TestCase
-from cc.models import BlogPosts
+from cc.models import MonthlyPosts
 from datetime import date
 
 import sys
-
 
 
 """ LOGIN """
@@ -37,24 +36,24 @@ class BlogPostsModelTest(TestCase):
             nTitle = "Title: {0}".format(i)
             nText = "this is the body {0}".format(i)
             nPublish_date = date(1994, i, 9)
-            BlogPosts.objects.create(title=nTitle, text=nText, publish_date = nPublish_date)
+            MonthlyPosts.objects.create(title=nTitle, text=nText, publish_date = nPublish_date)
     
     #Unit Tests
     
     def test_retrieve_a_post(self):
-        post = BlogPosts.objects.get(title="Title: 1")
+        post = MonthlyPosts.objects.get(title="Title: 1")
         self.assertEquals(post.text, "this is the body 1")
         
     def test_edit_a_post(self):
-        post = BlogPosts.objects.get(title="Title: 3")
+        post = MonthlyPosts.objects.get(title="Title: 3")
         post.text = "this is the NEW body.  You like?"
         post.save()
-        updatedPost = BlogPosts.objects.get(title="Title: 3")
+        updatedPost = MonthlyPosts.objects.get(title="Title: 3")
         self.assertEquals(updatedPost.text, "this is the NEW body.  You like?")
         
     def test_delete_a_post(self):
-        BlogPosts.objects.get(title="Title: 5").delete()
-        self.assertEquals(BlogPosts.objects.count(), 9)
+        MonthlyPosts.objects.get(title="Title: 5").delete()
+        self.assertEquals(MonthlyPosts.objects.count(), 9)
         
     #Integrated Tests
 
