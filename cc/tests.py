@@ -13,8 +13,6 @@ class LoginTest(TestCase):
         self.assertTrue(False)
     
 
-
-
 """ HOMEPAGE """
 
 #view
