@@ -1,21 +1,21 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.shortcuts import render
-from django.http.request import HttpRequest
 from django.http.response import HttpResponseRedirect
+
+from django.urls import reverse
 
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 
-from .models import MonthlyPosts, Links
 from .forms import LoginForm, LoginAgainForm
 
 @login_required
 def homepage(request):
+    
+    request.session.set_expiry(15)
+    
     return render(request,'cc/homepage.html', {})
-
-def loginagain(request):
-    return render(request, 'cc/loginagain.html')
 
 def verifyUser(request):
     secondattempt = False
@@ -28,12 +28,12 @@ def verifyUser(request):
             if key=='parentpassword':
                 user = authenticate(request, username='parent', password=key)
                 login(request, user)
-                return HttpResponseRedirect('/home/')
+                return HttpResponseRedirect(reverse('home'))
             
             elif key=='carriespassword':
                 user = authenticate(request, username='carrieUser', password=key)
                 login(request, user)
-                return HttpResponseRedirect('/home/')
+                return HttpResponseRedirect(reverse('home'))
             else:
                 secondattempt = True
     
