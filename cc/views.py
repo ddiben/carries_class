@@ -10,11 +10,9 @@ from django.contrib.auth.decorators import login_required
 
 from .forms import LoginForm, LoginAgainForm
 
-@login_required
-def homepage(request):
-    
-    request.session.set_expiry(15)
-    
+@login_required(redirect_field_name=None) # 'redirect_field_name' removes the '?next=' from the url after redirection
+def homepage(request, expTime=360):
+    request.session.set_expiry(expTime)
     return render(request,'cc/homepage.html', {})
 
 def verifyUser(request):
