@@ -83,6 +83,8 @@ class LoginTest(TestCase):
     def test_cookie_expiration(self):
         self.fail("not yet implemented")
         
+        # this is new 
+        
         # I can't figure out how to render the homepage again without it resetting the resuest.session's expiration time....it works when I manually enter it 
         # though (change the 'homepage' view function to have 'expTime' = .5 and then sleep(1) between client.get()'s.    
         
