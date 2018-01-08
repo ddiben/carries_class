@@ -8,7 +8,7 @@ from django.urls import reverse
 from django.test import TestCase, RequestFactory
 
 from cc.models import MonthlyPosts
-from cc.views import verifyUser
+from cc.views import verifyUser, homepage
 
 
 # ------ LOGIN ------ #
@@ -81,12 +81,19 @@ class LoginTest(TestCase):
         self.assertEqual(response.status_code, 302)
         
     def test_cookie_expiration(self):
-        self.fail("not yet implemented")
+    
+        request = self.factory.get(reverse('home'))
+        request.session = self.client.session
+        request.user = User.objects.get(username='carrieUser')
         
-        # this is new 
+        homepage(request, expTime=.5)
+        
+        self.assertEqual(request.session['_session_expiry'], .5) 
+        
+        # I think I need another view other than the home view to try and access, so that the 'request._session_expiry' doesn't get reset.
         
         # I can't figure out how to render the homepage again without it resetting the resuest.session's expiration time....it works when I manually enter it 
-        # though (change the 'homepage' view function to have 'expTime' = .5 and then sleep(1) between client.get()'s.    
+        # though (change the 'homepage' view function to have 'expTime' = .5 and then sleep(1) between client.get('home')'s.    
         
 # ------ HOMEPAGE ------ #
 
@@ -131,10 +138,9 @@ class MonthlyPostsTest(TestCase):
     #Integrated Tests
 
     def test_create_and_retrieve_a_post(self):
-        self.assertTrue(False)
+        self.fail("not yet implemented")
 
-        
-    def test_create_and_display_a_post(self):
-        self.assertTrue(False)
+    def display_selected_post(self):
+        self.fail("not yet implemented")
         
     
