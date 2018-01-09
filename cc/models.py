@@ -16,6 +16,16 @@ class MonthlyPosts(models.Model):
 
     """ Have one displayed, but a drop-down menu that allows the display of any previous month from the school year """
     
+    def set_post_to_display(self):
+        displayedPosts = MonthlyPosts.objects.filter(to_display=True)
+        if not displayedPosts:
+            self.to_display = True
+        else:
+            for post in displayedPosts:
+                post.to_display = False
+                post.save()
+            self.to_display = True
+    
 class Links(models.Model):
     title = models.CharField(max_length=(300),)
     link_url = models.URLField()

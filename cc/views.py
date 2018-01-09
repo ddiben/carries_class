@@ -10,10 +10,15 @@ from django.contrib.auth.decorators import login_required
 
 from .forms import LoginForm, LoginAgainForm
 
+from .models import MonthlyPosts
+
 @login_required(redirect_field_name=None) # 'redirect_field_name' removes the '?next=' from the url after redirection
 def homepage(request, expTime=360):
     request.session.set_expiry(expTime)
-    return render(request,'cc/homepage.html', {})
+    
+    postToDisplay = MonthlyPosts.objects.get(to_display=True)
+    
+    return render(request,'cc/homepage.html', {'monthly_post': postToDisplay})
 
 def verifyUser(request):
     secondattempt = False

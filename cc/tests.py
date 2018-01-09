@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+#from __future__ import unicode_literals
+
 from datetime import date
 from sys import stderr as prnt
 from time import sleep 
@@ -20,7 +23,7 @@ class LoginTest(TestCase):
         self.factory = RequestFactory()
         
         User.objects.create_user(username='carrieUser', email="carrie@notmail.com", password='carriespassword')
-        User.objects.create_user(username='parent', email="carrie@notmail.com", password='parentpassword')
+        User.objects.create_user(username='parent', email="parent@notmail.com", password='parentpassword')
         
 
     #Test the Login's redirect for users that are not logged in (tests for logged-in users occur later) 
@@ -55,12 +58,14 @@ class LoginTest(TestCase):
         response = self.client.get(reverse('home'))
         self.assertEqual(response.status_code, 200)
         
+    # This test may be unneeded, because I wind up creating what I want to test inside the test itself (setting permissions, and then verifying them)
     def test_carrie_permissions(self):
         self.fail("not yet implemented")
         
     def test_parent_login(self):
         self.attempt_login_with_password('parentpassword')
     
+    # See test_carrie_permissiosn
     def test_parent_permissions(self):
         self.fail("not yet implemented")
         
@@ -95,12 +100,13 @@ class LoginTest(TestCase):
         # I can't figure out how to render the homepage again without it resetting the resuest.session's expiration time....it works when I manually enter it 
         # though (change the 'homepage' view function to have 'expTime' = .5 and then sleep(1) between client.get('home')'s.    
         
+        
 # ------ HOMEPAGE ------ #
 
 #view
 class HomepageViewTest(TestCase):
     
-    def test_navbar(self):
+    def test_links_of_navbar(self):
         self.assertTrue(False)
     
     def test_calendar_appears(self):
@@ -108,6 +114,11 @@ class HomepageViewTest(TestCase):
 
 #model and form
 class MonthlyPostsTest(TestCase):
+    
+    def setUp(self):
+        #login as carrie
+        User.objects.create_user(username='carrieUser', password='carriespassword')
+        self.client.login(username='carrieUser', password="carriespassword")
     
     @classmethod
     def setUpTestData(cls):
@@ -117,8 +128,7 @@ class MonthlyPostsTest(TestCase):
             nText = "this is the body {0}".format(i)
             nPublish_date = date(1994, i, 9)
             MonthlyPosts.objects.create(title=nTitle, text=nText, publish_date = nPublish_date)
-    
-    #Unit Tests
+            
         
     def test_retrieve_a_post(self):
         post = MonthlyPosts.objects.get(title="Title: 1")
@@ -135,12 +145,38 @@ class MonthlyPostsTest(TestCase):
         MonthlyPosts.objects.get(title="Title: 5").delete()
         self.assertEquals(MonthlyPosts.objects.count(), 9)
         
-    #Integrated Tests
-
+    def test_set_post_to_display(self):
+        qs = MonthlyPosts.objects.get(title="Title: 7")
+        qs.set_post_to_display()
+        qs.save()
+        mp = MonthlyPosts.objects.get(to_display=True)
+        
+        self.assertEqual(mp, MonthlyPosts.objects.get(title="Title: 7"))
+        
+        qs = MonthlyPosts.objects.get(title="Title: 8")
+        qs.set_post_to_display()
+        qs.save()
+        qs = MonthlyPosts.objects.get(title="Title: 4")
+        qs.set_post_to_display()
+        qs.save()
+        
+        mp = MonthlyPosts.objects.filter(to_display=True)
+        self.assertEqual(len(mp), 1)
+        self.assertEqual(mp[0], MonthlyPosts.objects.get(title="Title: 4"))
+          
+    def test_display_a_post(self):
+        qs = MonthlyPosts.objects.get(title="Title: 7")
+        qs.set_post_to_display()
+        qs.save()
+        
+        self.client.post(reverse('login'), {'password_field' : 'carriespassword'}, follow=True)
+        
+        response = self.client.get(reverse('home'))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['monthly_post'], qs)
+        
     def test_create_and_retrieve_a_post(self):
         self.fail("not yet implemented")
 
-    def display_selected_post(self):
-        self.fail("not yet implemented")
         
     
