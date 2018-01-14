@@ -126,16 +126,16 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-# Amazon webservices, hooking up to the bucket
+# Amazon Web Services; hooking up to the bucket
 AWS_STORAGE_BUCKET_NAME = 'cc3test-static-files'
 AWS_S3_REGION_NAME = 'us-east-2'
 AWS_ACCESS_KEY_ID = 'AKIAICU6OL6D7KEEKNVQ'
 AWS_SECRET_ACCESS_KEY = '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'
 
-# Tell django-storages the domain to use to refer to static files
+# Tell Django-storages the domain to use to refer to static files
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.us-east-2.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
-# Tell the staticfiles appto use the S3Boto3 storage when writing the collected static 
+# Tell the Static-Files app to use the S3Boto3 storage when writing the collected static 
 # files (when you run collect static)
 
 STATICFILES_LOCATION = 'static'

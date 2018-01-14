@@ -6,7 +6,7 @@ from django.db import models
 class MonthlyPosts(models.Model):
     title = models.CharField(max_length=(300),)
     text = models.TextField()
-    publish_date = models.DateField()
+    publish_date = models.DateField(null=True)
     #if this is true, then this is the BlogPost that is displayed (no two posts should have the same title)
     to_display = models.BooleanField(default=False)
     
@@ -14,7 +14,7 @@ class MonthlyPosts(models.Model):
         string = "{0} || {1}...".format(self.title, self.text[:10])
         return string
 
-    """ Have one displayed, but a drop-down menu that allows the display of any previous month from the school year """
+    """ Have one displayed <and editable for carrieUser>, but a drop-down menu that allows the display of any previous post from the school year """
     
     def set_post_to_display(self):
         displayedPosts = MonthlyPosts.objects.filter(to_display=True)

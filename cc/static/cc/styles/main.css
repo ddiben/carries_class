@@ -168,7 +168,7 @@ body {
 			padding: 2%;
 			background: #5B5B5B;
 		}
-			#monthly-header {
+			.monthly-header {
 				margin-bottom: 2%;
 				font-size: 4%;
 				font-family: 'Lobster', cursive;
@@ -176,9 +176,39 @@ body {
 				line-height: .75em;
 			}
 
-			#monthly-text {
+			.monthly-text {
 				font-size: 2%;
 			}
+
+		#monthly-post-form-div {
+			color: black;
+			padding: 2%;
+			background: #5B5B5B;
+			
+			margin-top: 1%;
+			
+			
+		}
+
+.monthly-post-form {
+	display: flex;
+	flex-direction: column;
+	background: #5B5B5B;
+}
+
+#monthly-header-form {
+	background: #5B5B5B;
+	border: none;
+	margin-bottom: .5%;
+}
+
+#monthly-text-form {
+	background: #5B5B5B;
+	border: none;
+}
+
+
+
 
 		#homework {
 			font-style: 'Lobster', cursive;

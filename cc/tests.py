@@ -3,7 +3,6 @@
 
 from datetime import date
 from sys import stderr as prnt
-from time import sleep 
 
 from django.contrib.auth.models import User
 from django.urls import reverse
@@ -25,7 +24,6 @@ class LoginTest(TestCase):
         User.objects.create_user(username='carrieUser', email="carrie@notmail.com", password='carriespassword')
         User.objects.create_user(username='parent', email="parent@notmail.com", password='parentpassword')
         
-
     #Test the Login's redirect for users that are not logged in (tests for logged-in users occur later) 
     def test_login_redirect(self):
         response = self.client.get(reverse('home'), follow=True)
@@ -33,7 +31,7 @@ class LoginTest(TestCase):
         
     #Test the responses from verifyUser(), authentication tests occur later
     def test_verifyUser(self):
-        request = self.factory.post('/login/', {'password_field' : 'carriespassword'})
+        request = self.factory.post(reverse('login'), {'password_field' : 'carriespassword'})
         request.session = self.client.session
         response = verifyUser(request)
         
@@ -56,18 +54,10 @@ class LoginTest(TestCase):
         
         # no longer redirects
         response = self.client.get(reverse('home'))
-        self.assertEqual(response.status_code, 200)
-        
-    # This test may be unneeded, because I wind up creating what I want to test inside the test itself (setting permissions, and then verifying them)
-    def test_carrie_permissions(self):
-        self.fail("not yet implemented")
+        self.assertEqual(response.status_code, 200) 
         
     def test_parent_login(self):
         self.attempt_login_with_password('parentpassword')
-    
-    # See test_carrie_permissiosn
-    def test_parent_permissions(self):
-        self.fail("not yet implemented")
         
     def test_incorrect_login(self):
         # redirects before login
@@ -106,19 +96,27 @@ class LoginTest(TestCase):
 #view
 class HomepageViewTest(TestCase):
     
+    # These permission tests may be unneeded, because I wind up creating what I want to test inside the test itself (setting permissions, and then verifying them)
+    def test_carrie_permissions(self):
+        self.fail("not yet implemented")
+        
+    def test_parent_permissions(self):
+        self.fail("not yet implemented")
+        
+    
     def test_links_of_navbar(self):
         self.assertTrue(False)
     
-    def test_calendar_appears(self):
-        self.assertTrue(False)
+    
+    def test_create_and_display_post(self):
+        self.fail("Not yet implemented")
 
-#model and form
 class MonthlyPostsTest(TestCase):
     
     def setUp(self):
-        #login as carrie
+        #login as Carrie
         User.objects.create_user(username='carrieUser', password='carriespassword')
-        self.client.login(username='carrieUser', password="carriespassword")
+        #self.client.login(username='carrieUser', password="carriespassword")
     
     @classmethod
     def setUpTestData(cls):
@@ -146,6 +144,7 @@ class MonthlyPostsTest(TestCase):
         self.assertEquals(MonthlyPosts.objects.count(), 9)
         
     def test_set_post_to_display(self):
+        # will I have to implement a 'time' variable that tracks which one was changed most recently?  
         qs = MonthlyPosts.objects.get(title="Title: 7")
         qs.set_post_to_display()
         qs.save()
@@ -163,7 +162,7 @@ class MonthlyPostsTest(TestCase):
         mp = MonthlyPosts.objects.filter(to_display=True)
         self.assertEqual(len(mp), 1)
         self.assertEqual(mp[0], MonthlyPosts.objects.get(title="Title: 4"))
-          
+        
     def test_display_a_post(self):
         qs = MonthlyPosts.objects.get(title="Title: 7")
         qs.set_post_to_display()
@@ -175,8 +174,25 @@ class MonthlyPostsTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['monthly_post'], qs)
         
-    def test_create_and_retrieve_a_post(self):
-        self.fail("not yet implemented")
-
+    def test_load_page_with_no_previous_post(self):
+        posts = MonthlyPosts.objects.all()
+        for post in posts:
+            post.delete()
+            post.save()
+        
+        self.client.post(reverse('login'), {'password_field' : 'carriespassword'}, follow=True)
+        
+        response = self.client.get(reverse('home'))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['monthly_post'].title, 'No post to display')
+        
+        post = MonthlyPosts.objects.create(title="Title: 1", text='This is the body of the post', publish_date = date(1994, 5, 9))
+        post.set_post_to_display()
+        post.save()
+        
+        response = self.client.get(reverse('home'))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['monthly_post'].title, 'Title: 1')
+        
         
     

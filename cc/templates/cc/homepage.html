@@ -61,7 +61,19 @@
 					$('.hover-text-container').remove();
         		},
 			});
+			
+			//This is awesome, I don't exactly understand how it works.  Got it from < https://stackoverflow.com/questions/454202/creating-a-textarea-with-auto-resize>, 'A Completely Simlple...' >
+			$('textarea').each(function () {
+					this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+				}).on('input', function () {
+					this.style.height = 'auto';
+					this.style.height = (this.scrollHeight) + 'px';
+				});
+			
+			$('textarea').val( JSON.parse("{{ monthly_post_text_json|escapejs }}"))
 		});	
+		
+		
 	</script>
 </head>
 <body>
@@ -78,7 +90,7 @@
 			
 			<div class="navbar-layout">
 				<div class="navitem active"><a class="anchor" href="ccsite/home">Home</a></div>
-				<div class="navitem"><a class="anchor" href="ccsite/faq">FAQ</a></div>
+				<div class="navitem"><a class="anchor" href="ccsite/math">Math</a></div>
 				<div class="navitem"><a class="anchor" href="ccsite/bio">Bio</a></div>
 				<div class="navitem"><a class="anchor" href="ccsite/parents">Parents</a></div>
 				<div class="navitem"><a class="anchor" href="ccsite/links">Links</a></div>
@@ -90,8 +102,16 @@
 	<div class="lower-wrapper">
 		<div class="maincontent">
 			<div id="monthly-post">
-				<h2 id="monthly-header">Monthly Post</h2>
-				<p class="paragraphtext" id="monthly-text"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur mollis gravida ligula convallis volutpat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Ut ipsum justo, auctor vitae lacus eget, viverra mollis turpis. Donec quis purus quis est porttitor fringilla. Donec pharetra imperdiet ante vel pharetra. Aenean id aliquet urna. Quisque eget laoreet nisi. Sed interdum orci neque, id sodales neque semper in.</p>
+				<h2 class="monthly-header"> {{ monthly_post.title }} </h2>
+				<p class="paragraphtext monthly-text"> {{ monthly_post.text }} </p>
+			</div>
+			<div id="monthly-post-form-div">
+				<form class="monthly-post-form">
+					{% for field in form %}
+						{{ field }}
+					{% endfor %}
+					<button type="submit" class="monthly-post-form-save">Save</button>
+				</form>
 			</div>
 			<div id="homework">
 				<h2 id="homework-header"></h2>

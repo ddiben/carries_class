@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+import json
+
 from django.shortcuts import render
 from django.http.response import HttpResponseRedirect
 
@@ -8,15 +10,34 @@ from django.urls import reverse
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 
-from .forms import LoginForm, LoginAgainForm
+from .forms import LoginForm, LoginAgainForm, PostEditForm
 
 from .models import MonthlyPosts
 
 @login_required(redirect_field_name=None) # 'redirect_field_name' removes the '?next=' from the url after redirection
-def homepage(request, expTime=360):
+def homepage(request, expTime=18000):
     request.session.set_expiry(expTime)
     
-    postToDisplay = MonthlyPosts.objects.get(to_display=True)
+    try:
+        postToDisplay = MonthlyPosts.objects.get(to_display=True)
+    except:
+        postToDisplay_if_not = MonthlyPosts.objects.get_or_create(title='No post to display\' ', text='Looks like there isn\'t anything going on')
+        postToDisplay = postToDisplay_if_not[0]
+        postToDisplay.set_post_to_display()
+        postToDisplay.save()
+    
+    if request.user.username == 'carrieUser':
+        if request.method == 'POST':
+            form = PostEditForm(request.POST)
+            
+            if form.is_valid():
+                postToDisplay.title = form.cleaned_data['title']
+                postToDisplay.text = form.cleaned_text['text']
+                postToDisplay.save()
+                
+        else:
+            form = PostEditForm()
+            return render(request, 'cc/homepage.html', {'monthly_post': postToDisplay, 'form': form, 'monthly_post_text_json': json.dumps(postToDisplay.text) })
     
     return render(request,'cc/homepage.html', {'monthly_post': postToDisplay})
 
