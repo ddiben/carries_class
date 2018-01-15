@@ -62,7 +62,7 @@
         		},
 			});
 			
-			//This is awesome, I don't exactly understand how it works.  Got it from < https://stackoverflow.com/questions/454202/creating-a-textarea-with-auto-resize>, 'A Completely Simlple...' >
+			//This is awesome, I don't exactly understand how it works.  Got it from < https://stackoverflow.com/questions/454202/creating-a-textarea-with-auto-resize>, 'A Completely Simlple...' >.  It makes the size of the textarea scale with the content.
 			$('textarea').each(function () {
 					this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
 				}).on('input', function () {
@@ -70,10 +70,21 @@
 					this.style.height = (this.scrollHeight) + 'px';
 				});
 			
+			//This avoids some string encoding problems. 
 			$('textarea').val( JSON.parse("{{ monthly_post_text_json|escapejs }}"))
+			
 		});	
 		
-		
+	//This disables the 'Enter' key from submitting forms, and instead makes it clear focus <unless you are editing the header, then it makes 
+	//the focus shift down to the textarea. 
+	$(document).keypress(function(event){
+    	if (event.which == '13' && $('#monthly-header-form').is(':focus')) {
+        	event.preventDefault();
+			$('#monthly-header-form').blur();
+			$('#monthly-text-form').focus();
+      	}
+	});
+
 	</script>
 </head>
 <body>
@@ -101,18 +112,23 @@
 	</div>
 	<div class="lower-wrapper">
 		<div class="maincontent">
+			{% if request.user.username == 'parent' %}
 			<div id="monthly-post">
 				<h2 class="monthly-header"> {{ monthly_post.title }} </h2>
 				<p class="paragraphtext monthly-text"> {{ monthly_post.text }} </p>
 			</div>
+			{% endif %}
+			{% if request.user.username == 'carrieUser' %}
+			{% csrf_token %}
 			<div id="monthly-post-form-div">
-				<form class="monthly-post-form">
+				<form class="monthly-post-form" action="/">
 					{% for field in form %}
 						{{ field }}
 					{% endfor %}
-					<button type="submit" class="monthly-post-form-save">Save</button>
+					<button type="submit" name="save" class="monthly-post-form-save">Save</button>
 				</form>
 			</div>
+			{% endif %}
 			<div id="homework">
 				<h2 id="homework-header"></h2>
 				<div id="calendar"></div>

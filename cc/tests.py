@@ -3,16 +3,60 @@
 
 from datetime import date
 from sys import stderr as prnt
+import time
 
 from django.contrib.auth.models import User
 from django.urls import reverse
 
 from django.test import TestCase, RequestFactory
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+from selenium import webdriver
 
 from cc.models import MonthlyPosts
 from cc.views import verifyUser, homepage
 
 
+
+    
+# ------ Integrated Test ------ #
+
+class IntegratedTest(StaticLiveServerTestCase):
+    # This sequence of tests simulate all functionality of the site. The general structure is, 'carrieUser' does something and then 'parent' sees it. 
+    
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.selenium = webdriver.Chrome()
+        cls.selenium.implicitly_wait(5)
+        
+    def setUp(self):
+        User.objects.create_user(username='carrieUser', password='carriespassword')
+        User.objects.create_user(username='parent', password='parentpassword')
+        
+
+    def test_login_carrie(self):
+        self.login('carriespassword')
+        self.assertEqual('{0}{1}'.format(self.live_server_url, reverse('home')), self.selenium.current_url)         
+        
+    def login(self, password):
+        self.selenium.get('%s%s' % (self.live_server_url, '/login/'))
+        password_input = self.selenium.find_element_by_class_name('login-input')
+        password_input.send_keys(password)
+        self.selenium.find_element_by_class_name('login-submit').click()
+        
+    # 'carrie' edits and saves a post, and a 'parent sees those changes. 
+    def test_edit_post(self):
+        self.login('carriespassword')
+        
+        self.selenium.get('{0}{1}'.format(self.live_server_url, '/'))
+        self.assertEqual('{0}{1}'.format(self.live_server_url, reverse('home')), self.selenium.current_url)
+    
+    @classmethod
+    def tearDownClass(cls):
+        cls.selenium.quit()
+        super().tearDownClass()
+        
+    
 # ------ LOGIN ------ #
 
 class LoginTest(TestCase):
@@ -93,30 +137,26 @@ class LoginTest(TestCase):
         
 # ------ HOMEPAGE ------ #
 
-#view
+# view
 class HomepageViewTest(TestCase):
     
-    # These permission tests may be unneeded, because I wind up creating what I want to test inside the test itself (setting permissions, and then verifying them)
-    def test_carrie_permissions(self):
-        self.fail("not yet implemented")
+    def setUp(self):
+        self.factory = RequestFactory()
         
-    def test_parent_permissions(self):
-        self.fail("not yet implemented")
+        User.objects.create_user(username='carrieUser', email="carrie@notmail.com", password='carriespassword')
+        User.objects.create_user(username='parent', email="parent@notmail.com", password='parentpassword')
         
-    
+        #login someone in
+        
     def test_links_of_navbar(self):
         self.assertTrue(False)
     
-    
-    def test_create_and_display_post(self):
-        self.fail("Not yet implemented")
-
+# model
 class MonthlyPostsTest(TestCase):
     
     def setUp(self):
-        #login as Carrie
+        #login as 'Carrie'
         User.objects.create_user(username='carrieUser', password='carriespassword')
-        #self.client.login(username='carrieUser', password="carriespassword")
     
     @classmethod
     def setUpTestData(cls):
@@ -144,7 +184,7 @@ class MonthlyPostsTest(TestCase):
         self.assertEquals(MonthlyPosts.objects.count(), 9)
         
     def test_set_post_to_display(self):
-        # will I have to implement a 'time' variable that tracks which one was changed most recently?  
+         
         qs = MonthlyPosts.objects.get(title="Title: 7")
         qs.set_post_to_display()
         qs.save()

@@ -15,13 +15,13 @@ from .forms import LoginForm, LoginAgainForm, PostEditForm
 from .models import MonthlyPosts
 
 @login_required(redirect_field_name=None) # 'redirect_field_name' removes the '?next=' from the url after redirection
-def homepage(request, expTime=18000):
+def homepage(request, expTime=9000):
     request.session.set_expiry(expTime)
     
     try:
         postToDisplay = MonthlyPosts.objects.get(to_display=True)
     except:
-        postToDisplay_if_not = MonthlyPosts.objects.get_or_create(title='No post to display\' ', text='Looks like there isn\'t anything going on')
+        postToDisplay_if_not = MonthlyPosts.objects.get_or_create(title='No post to display', text='Looks like there isn\'t anything going on')
         postToDisplay = postToDisplay_if_not[0]
         postToDisplay.set_post_to_display()
         postToDisplay.save()
@@ -30,17 +30,18 @@ def homepage(request, expTime=18000):
         if request.method == 'POST':
             form = PostEditForm(request.POST)
             
-            if form.is_valid():
+            if form.is_valid() and request.POST.get('save'):
                 postToDisplay.title = form.cleaned_data['title']
                 postToDisplay.text = form.cleaned_text['text']
                 postToDisplay.save()
                 
         else:
             form = PostEditForm()
-            return render(request, 'cc/homepage.html', {'monthly_post': postToDisplay, 'form': form, 'monthly_post_text_json': json.dumps(postToDisplay.text) })
+        return render(request, 'cc/homepage.html', {'monthly_post': postToDisplay, 'form': form, 'monthly_post_text_json': json.dumps(postToDisplay.text) })
     
     return render(request,'cc/homepage.html', {'monthly_post': postToDisplay})
 
+# the login view, but I didin't want to overwrite Django's (because that was more complicated than just calling mine something else. 
 def verifyUser(request):
     secondattempt = False
     if request.method == 'POST':

@@ -200,11 +200,13 @@ body {
 	background: #5B5B5B;
 	border: none;
 	margin-bottom: .5%;
+	overflow: auto;
 }
 
 #monthly-text-form {
 	background: #5B5B5B;
 	border: none;
+	resize: none;
 }
 
 

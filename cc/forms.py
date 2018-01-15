@@ -17,8 +17,8 @@ class PostEditForm(forms.ModelForm):
         model = MonthlyPosts
         post =  MonthlyPosts.objects.get(to_display=True)
         widgets = {
-            'title': forms.TextInput(attrs= {'class': 'monthly-header', 'id': 'monthly-header-form', 'value': post.title}),
-            'text': forms.Textarea(attrs= {'class': 'monthly-text', 'id': 'monthly-text-form'})
+            'title': forms.TextInput(attrs= {'class': 'monthly-header', 'id': 'monthly-header-form', 'value': post.title, 'autocomplete': 'off'}),
+            'text': forms.Textarea(attrs= {'class': 'monthly-text', 'id': 'monthly-text-form', 'autocomplete': 'off'})
         }
         fields = ('title', 'text',)
         
