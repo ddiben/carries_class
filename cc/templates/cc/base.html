@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+	<title>CarriesClass</title>
+	<meta charset="utf-8">
+	<link href="https://fonts.googleapis.com/css?family=Fugaz+One|Lobster|Pangolin|Permanent+Marker" rel="stylesheet">
+		<!-- 'Pangolin', 'Lobster', 'Permanent Marker', 'Fugaz One'. -->
+		
+	<link href="https://fonts.googleapis.com/css?family=Berkshire+Swash|Waiting+for+the+Sunrise|Zeyada" rel="stylesheet">
+		
+	<link rel="stylesheet" href="{% static 'cc/fullCalendar/styles/fullcalendar.css' %}"> <!-- fullCalendar dependencies -->
+	<script src="{% static 'cc/fullCalendar/scripts/jquery.min.js' %}" type="text/javascript"></script>
+	<script src="{% static 'cc/fullCalendar/scripts/moment.min.js' %}" type="text/javascript"></script>
+	<script src="{% static 'cc/fullCalendar/scripts/fullcalendar.js' %}" type="text/javascript"></script>
+	<script src="{% static 'cc/fullCalendar/scripts/gcal.js' %}" type="text/javascript"></script>
+	
+	<link rel="stylesheet" href="{% static 'cc/styles/main.css' %}" type="text/css"/> <!-- main style sheet -->
+	
+	{{ block script }}
+	{{ endblock }}
+	
+</head>
+<body>
+<div class="site-border"></div>
+<div class="site-body">
+	<div class="upper-wrapper">
+		<div class="header-and-image">
+			<div class="header-gap"></div>
+			<div class="header-welcome"><span id="header-text">Carrie's Class</span></div>
+			<div class="header-image-gap"></div>
+			<div class="page-image"></div>
+		</div>
+		<div class="navbar">
+			
+			<div class="navbar-layout">
+				<div class="navitem"><a class="anchor" href="ccsite/home">Home</a></div>
+				<div class="navitem"><a class="anchor" href="ccsite/math">Math</a></div>
+				<div class="navitem"><a class="anchor" href="ccsite/bio">Bio</a></div>
+				<div class="navitem"><a class="anchor" href="ccsite/parents">Parents</a></div>
+				<div class="navitem"><a class="anchor" href="ccsite/links">Links</a></div>
+				<div class="navitem"><a class="anchor" href="ccsite/photos">Photos</a></div>
+			</div>
+			
+		</div>
+	</div>
+	<div class="lower-wrapper">
+		<div class="maincontent">
+			{{ block content }}
+			{{ endblock }}
+		</div>
+	</div>
+	<div id="lowest-banner-image"></div>
+</div>
+<div class="site-border"></div>
+</body>
+</html>
