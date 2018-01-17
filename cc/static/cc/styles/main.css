@@ -161,13 +161,14 @@ body {
 		max-height: 144px;
 	}
   
-		/* Home page content */
+		/* Home page content */     /* Clean this up! */
 
 		#monthly-post {
 			color: black;
 			padding: 2%;
 			background: #5B5B5B;
 		}
+
 			.monthly-header {
 				margin-bottom: 2%;
 				font-size: 4%;
@@ -182,32 +183,67 @@ body {
 
 		#monthly-post-form-div {
 			color: black;
-			padding: 2%;
+			padding: 1%;
 			background: #5B5B5B;
-			
-			margin-top: 1%;
-			
-			
 		}
 
-.monthly-post-form {
-	display: flex;
-	flex-direction: column;
-	background: #5B5B5B;
-}
 
-#monthly-header-form {
-	background: #5B5B5B;
-	border: none;
-	margin-bottom: .5%;
-	overflow: auto;
-}
+		.monthly-post-form {
+			display: flex;
+			flex-direction: column;
+			background: #5B5B5B;
+		}
 
-#monthly-text-form {
-	background: #5B5B5B;
-	border: none;
-	resize: none;
-}
+		#monthly-header-form {
+			background: #5B5B5B;
+			border: none;
+			margin-bottom: .5%;
+			overflow: none;
+		}
+
+		#monthly-text-form {
+			background: #5B5B5B;
+			border: none;
+			resize: none;
+			font-family: Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", "serif";
+		}
+
+		.monthly-post-button-wrapper {
+			display: flex;
+			flex-direction: row;
+			justify-content: flex-end;
+
+			margin-top: 1.5%;
+
+			font-size: 0;
+		}
+
+		.monthly-post-form-save {
+			box-sizing: border-box;
+			padding-left: 2vmin;
+			padding-right: 2vmin;
+			font-size: 2.65vmin;
+			color: whitesmoke;
+			border-radius: 5px;
+			font-family: 'Lobster', cursive;
+			background: #1E1E1E;
+
+			margin-right: 1.5%;
+			border-color: #1E1E1E;
+		}
+
+		.monthly-post-form-new {
+			box-sizing: border-box;
+			padding-left: 2vmin;
+			padding-right: 2vmin;
+			font-size: 2.65vmin;
+			color: whitesmoke;
+			border-radius: 5px;
+			font-family: 'Lobster', cursive;
+			background: #1E1E1E;
+
+			border-color: #1E1E1E;
+		}
 
 
 

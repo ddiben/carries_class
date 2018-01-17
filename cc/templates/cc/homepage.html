@@ -72,6 +72,7 @@
 			
 			//This avoids some string encoding problems. 
 			$('textarea').val( JSON.parse("{{ monthly_post_text_json|escapejs }}"))
+			$('#monthly-header-form').val( JSON.parse(" {{ monthly_post_title_json|escapejs }}"))
 			
 		});	
 		
@@ -98,7 +99,6 @@
 			<div class="page-image"></div>
 		</div>
 		<div class="navbar">
-			
 			<div class="navbar-layout">
 				<div class="navitem active"><a class="anchor" href="ccsite/home">Home</a></div>
 				<div class="navitem"><a class="anchor" href="ccsite/math">Math</a></div>
@@ -107,25 +107,27 @@
 				<div class="navitem"><a class="anchor" href="ccsite/links">Links</a></div>
 				<div class="navitem"><a class="anchor" href="ccsite/photos">Photos</a></div>
 			</div>
-			
 		</div>
 	</div>
 	<div class="lower-wrapper">
 		<div class="maincontent">
 			{% if request.user.username == 'parent' %}
-			<div id="monthly-post">
+			<div id="monthly-post" class="monthly-post">
 				<h2 class="monthly-header"> {{ monthly_post.title }} </h2>
 				<p class="paragraphtext monthly-text"> {{ monthly_post.text }} </p>
 			</div>
 			{% endif %}
 			{% if request.user.username == 'carrieUser' %}
-			{% csrf_token %}
-			<div id="monthly-post-form-div">
-				<form class="monthly-post-form" action="/">
+			<div id="monthly-post-form-div" class="monthly-post">
+				<form class="monthly-post-form" action="/" method="post">
+					{% csrf_token %}
 					{% for field in form %}
 						{{ field }}
 					{% endfor %}
-					<button type="submit" name="save" class="monthly-post-form-save">Save</button>
+					<div class="monthly-post-button-wrapper">
+						<input type="submit" name="save" value="Save" class="monthly-post-form-save">
+						<input type="submit" name="new" value="New" class="monthly-post-form-new">
+					</div>
 				</form>
 			</div>
 			{% endif %}

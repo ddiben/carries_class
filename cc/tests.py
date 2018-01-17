@@ -16,17 +16,16 @@ from cc.models import MonthlyPosts
 from cc.views import verifyUser, homepage
 
 
-
     
 # ------ Integrated Test ------ #
 
 class IntegratedTest(StaticLiveServerTestCase):
-    # This sequence of tests simulate all functionality of the site. The general structure is, 'carrieUser' does something and then 'parent' sees it. 
+    # This sequence of tests simulate all functionality of the site. The general structure is 'carrieUser' does something and then 'parent' verifies it. 
     
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.selenium = webdriver.Chrome()
+        cls.selenium = webdriver.Chrome('/usr/local/bin/chromedriver')
         cls.selenium.implicitly_wait(5)
         
     def setUp(self):
@@ -34,22 +33,112 @@ class IntegratedTest(StaticLiveServerTestCase):
         User.objects.create_user(username='parent', password='parentpassword')
         
 
-    def test_login_carrie(self):
+    def test_login(self):
         self.login('carriespassword')
-        self.assertEqual('{0}{1}'.format(self.live_server_url, reverse('home')), self.selenium.current_url)         
+        self.assertEqual('{0}{1}'.format(self.live_server_url, reverse('home')), self.selenium.current_url)  
         
+        self.login('parentpassword') 
+        self.assertEqual('{0}{1}'.format(self.live_server_url, reverse('home')), self.selenium.current_url)  
+
     def login(self, password):
         self.selenium.get('%s%s' % (self.live_server_url, '/login/'))
         password_input = self.selenium.find_element_by_class_name('login-input')
         password_input.send_keys(password)
         self.selenium.find_element_by_class_name('login-submit').click()
         
-    # 'carrie' edits and saves a post, and a 'parent sees those changes. 
+    # 'carrie' edits and saves a post, and a 'parent' verifies those changes. 
     def test_edit_post(self):
+        
+        # --- carrie: edit ('save' button) ---
+        
+        """ Some cleanup to do: functionalize this in general, and isolate assertion statements for clearer debugging """
+        
         self.login('carriespassword')
         
-        self.selenium.get('{0}{1}'.format(self.live_server_url, '/'))
-        self.assertEqual('{0}{1}'.format(self.live_server_url, reverse('home')), self.selenium.current_url)
+        post_header = self.selenium.find_element_by_id('monthly-header-form')
+        post_text = self.selenium.find_element_by_id('monthly-text-form')
+        post_submit = self.selenium.find_element_by_name('save')
+        
+        self.scan_page_for(["No post", "like there"])
+        
+        post_header.clear()
+        post_text.clear()
+        
+        post_header.send_keys('tomatoes')
+        post_text.send_keys('pickles')
+        
+        post_submit.click()
+        
+        self.scan_page_for(["tomatoes", "pickles"])
+        # this was turning up in the 'source_code' without appearing on the page, so I am running a quick double check
+        textarea = self.selenium.find_element_by_id('monthly-text-form')
+        self.assertEqual(textarea.text, "pickles")
+        
+        # --- parent ---
+        
+        self.login('parentpassword')
+        self.scan_page_for(["tomatoes", "pickles"])
+        
+        # --- carrie --- 'new' button
+        
+        self.login('carriespassword')
+        post_new = self.selenium.find_element_by_name("new")
+        post_new.click()
+        
+        allPosts = MonthlyPosts.objects.all()
+        self.assertEqual(len(allPosts), 2)
+        # one for the previous, and one for the blank post that was created by 'new'. 
+        
+        self.scan_page_for(["blank title", "write something new"])
+        
+        post_header = self.selenium.find_element_by_id('monthly-header-form')
+        post_text = self.selenium.find_element_by_id('monthly-text-form')
+        post_submit = self.selenium.find_element_by_name('save')
+        
+        post_header.clear()
+        post_text.clear()
+        
+        post_header.send_keys("tomatoes2")
+        post_text.send_keys("pickles2")
+        
+        post_submit.click() # why is this overriding the previous post, which shouldn't be accessible
+        
+        self.scan_page_for(["tomatoes2", "pickles2"])
+        
+        post_new = self.selenium.find_element_by_name("new")
+        post_new.click()
+         
+        self.scan_page_for(["blank title", "write something new"])
+        
+        post_header = self.selenium.find_element_by_id('monthly-header-form')
+        post_text = self.selenium.find_element_by_id('monthly-text-form')
+        post_submit = self.selenium.find_element_by_name('save')
+        
+        post_header.clear()
+        post_text.clear()
+        
+        post_header.send_keys("tomatoes3")
+        post_text.send_keys("pickles3")
+        
+        post_submit.click()
+        
+        allPosts = MonthlyPosts.objects.all()
+        
+        for post in allPosts:
+            prnt.write(repr(post))
+        
+        self.assertEqual(len(allPosts), 3)
+        
+        # --- parent ---
+        
+        self.login('parentpassword')
+        
+        self.scan_page_for(["tomatoes3", "pickles3"])
+    
+    def scan_page_for(self, listOfStrings):
+        page = self.selenium.page_source
+        for search_string in listOfStrings:
+            assert search_string in page
     
     @classmethod
     def tearDownClass(cls):
