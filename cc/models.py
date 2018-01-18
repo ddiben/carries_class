@@ -28,7 +28,7 @@ class MonthlyPosts(models.Model):
     
 class Links(models.Model):
     title = models.CharField(max_length=(300),)
-    link_url = models.URLField()
+    url = models.URLField()
     description = models.TextField()
     
         

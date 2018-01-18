@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 
 from django import forms
-from .models import MonthlyPosts
+from .models import MonthlyPosts, Links
 
 class LoginForm(forms.Form):
     password_field = forms.CharField(widget=forms.TextInput(
@@ -28,6 +28,20 @@ class PostEditForm(forms.ModelForm):
         }
         fields = ('title', 'text',)
         
-        """ She doesn't ever want to select a previous post, but we want to store them for the year in case we need to access them through the django admin
-        so right now I am thinking that we have two buttons: 'save' which allows editing of the current model; and 'new' which stores the final version of
-        the previous model, and creates a new post [and new MonthlyPost object]. """
+        # She doesn't need to be able to select a previous post, but we'll save them anyway so that I can go in and bring up old ones through the admin.  
+        
+        
+"""  make the link have a click-able title (that is the link), with a description (or maybe with a button that is the link), and a thumbnail preview
+    of the link's main page """
+    
+class LinkEditForm(forms.ModelForm):
+    
+    class Meta:
+        model = Links
+        
+        widgets = {
+            'title': forms.TextInput(attrs= {'class': 'link-title', 'id': 'link-title-form', 'autocomplete': 'off'}),
+            'url': forms.TextInput(),
+            'description': forms.Textarea(attrs= {'class': 'link-description', 'id': 'link-description-form', 'autocomplete': 'off'})
+        }
+        fields = ('title', 'description', 'url')

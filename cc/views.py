@@ -10,9 +10,9 @@ from django.urls import reverse
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 
-from .forms import LoginForm, LoginAgainForm, PostEditForm
+from .forms import LoginForm, LoginAgainForm, PostEditForm, LinkEditForm
 
-from .models import MonthlyPosts
+from .models import MonthlyPosts, Links
 
 @login_required(redirect_field_name=None) # 'redirect_field_name' removes the '?next=' from the url after redirection
 def homepage(request, expTime=9000):
@@ -54,6 +54,27 @@ def homepage(request, expTime=9000):
             'monthly_post_text_json': json.dumps(postToDisplay.text) })
             
     return render(request,'cc/homepage.html', {'monthly_post': postToDisplay})
+
+@login_required(redirect_field_name=None)
+def links(request):
+    if request.method == 'POST':
+        if request.user.username == 'carrieUser':
+            
+            form = LinkEditForm(request.POST)
+            
+            if form.is_valid():
+                
+                LinkEditForm.objects.create(
+                    title=form.cleaned_data['title'], 
+                    url=form.cleaned_data['url'], 
+                    description=form.cleaned_data['description'])
+                
+                
+            
+    
+    linksToDisplay = Links.objects.all()
+    
+    return render(request, 'cc/linkspage.html', {'links': linksToDisplay, 'numLinks': len(linksToDisplay)})
 
 # the login view, but I didin't want to overwrite Django's (because that was more complicated than just calling mine something else). 
 def verifyUser(request):
