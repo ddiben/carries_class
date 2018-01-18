@@ -1,6 +1,11 @@
 # -*- coding: utf-8 -*-
 #from __future__ import unicode_literals
 
+""" 
+This is deprecated.  I switched to having the tests in a separate folder.  I kept this just in case. 
+
+"""
+
 from datetime import date
 from sys import stderr as prnt
 import time
@@ -15,6 +20,7 @@ from selenium import webdriver
 from cc.models import MonthlyPosts, Links
 from cc.views import verifyUser, homepage, links
 
+from cc.tests.ccTestCases import ccTestCase
 
 # ------ Integrated Test ------ #
 
@@ -168,14 +174,13 @@ class IntegratedTest(StaticLiveServerTestCase):
     
 # ------ LOGIN ------ #
 
-class LoginTest(TestCase):
+class LoginTest(ccTestCase):
     
-    #Overriding method in 'TestCase'
+    #Overriding method in 'TestCast'
     def setUp(self):
-        self.factory = RequestFactory()
+        super().setUp()
         
-        User.objects.create_user(username='carrieUser', email="carrie@notmail.com", password='carriespassword')
-        User.objects.create_user(username='parent', email="parent@notmail.com", password='parentpassword')
+        self.factory = RequestFactory()
         
     #Test the Login's redirect for users that are not logged in (tests for logged-in users occur later) 
     def test_login_redirect(self):
@@ -244,28 +249,6 @@ class LoginTest(TestCase):
         # though (change the 'homepage' view function to have 'expTime' = .5 and then sleep(1) between client.get('home')'s.    
         
 
-class ccTestCase(TestCase):
-    
-    @classmethod
-    def setUp(cls):
-        User.objects.create_user(username='carrieUser', email="carrie@notmail.com", password='carriespassword')
-        User.objects.create_user(username='parent', email="parent@notmail.com", password='parentpassword')
-    
-    def attempt_login_with_password(self, password):
-        # redirects before login
-        response = self.client.get(reverse('home'))
-        self.assertEqual(response.status_code, 302)
-        
-        # no 'user' until after login
-        self.assertIsNone(response.context)
-        response = self.client.post(reverse('login'), {'password_field' : password}, follow=True)
-        self.assertIsNotNone(response.context)
-        self.assertTrue(response.context['user'].is_authenticated())
-        
-        # no longer redirects
-        response = self.client.get(reverse('home'))
-        self.assertEqual(response.status_code, 200) 
-
 # ------ HOMEPAGE ------ #
 
 # view
@@ -273,8 +256,6 @@ class HomepageViewTest(ccTestCase):
         
     def test_links_of_navbar(self):
         self.assertTrue(False)
-
-
         
 # model
 class MonthlyPostsTest(ccTestCase):

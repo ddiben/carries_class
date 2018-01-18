@@ -64,7 +64,7 @@ def links(request):
             
             if form.is_valid():
                 
-                LinkEditForm.objects.create(
+                Links.objects.create(
                     title=form.cleaned_data['title'], 
                     url=form.cleaned_data['url'], 
                     description=form.cleaned_data['description'])
