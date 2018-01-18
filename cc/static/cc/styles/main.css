@@ -133,13 +133,13 @@ body {
 				}
 
 	.navgap-left {
-	width: 10%;
-	background-color: #333;
+		width: 10%;
+		background-color: #333;
 	}
 
 	.navgap-right {
-	width: 10%;
-	background-color: #333;
+		width: 10%;
+		background-color: #333;
 	}		
 
 .lower-wrapper {
@@ -148,10 +148,9 @@ body {
 	width: 100%;
 }
 
-	.main-content {
-		display: flex;
-		width: 80%;
-	}
+.maincontent {
+	width: 100%;
+}
 
 	#lowest-banner-image {
 		margin-top: 1%;
@@ -161,14 +160,15 @@ body {
 		max-height: 144px;
 	}
   
-		/* Home page content */
+		/* Home page content */     /* Clean this up! */
 
 		#monthly-post {
 			color: black;
 			padding: 2%;
 			background: #5B5B5B;
 		}
-			#monthly-header {
+
+			.monthly-header {
 				margin-bottom: 2%;
 				font-size: 4%;
 				font-family: 'Lobster', cursive;
@@ -176,9 +176,76 @@ body {
 				line-height: .75em;
 			}
 
-			#monthly-text {
+			.monthly-text {
 				font-size: 2%;
 			}
+
+		#monthly-post-form-div {
+			color: black;
+			padding: 1%;
+			background: #5B5B5B;
+		}
+
+
+		.monthly-post-form {
+			display: flex;
+			flex-direction: column;
+			background: #5B5B5B;
+		}
+
+		#monthly-header-form {
+			background: #5B5B5B;
+			border: none;
+			margin-bottom: .5%;
+			overflow: none;
+		}
+
+		#monthly-text-form {
+			background: #5B5B5B;
+			border: none;
+			resize: none;
+			font-family: Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", "serif";
+		}
+
+		.monthly-post-button-wrapper {
+			display: flex;
+			flex-direction: row;
+			justify-content: flex-end;
+
+			margin-top: 1.5%;
+
+			font-size: 0;
+		}
+
+		.monthly-post-form-save {
+			box-sizing: border-box;
+			padding-left: 2vmin;
+			padding-right: 2vmin;
+			font-size: 2.65vmin;
+			color: whitesmoke;
+			border-radius: 5px;
+			font-family: 'Lobster', cursive;
+			background: #1E1E1E;
+
+			margin-right: 1.5%;
+			border-color: #1E1E1E;
+		}
+
+		.monthly-post-form-new {
+			box-sizing: border-box;
+			padding-left: 2vmin;
+			padding-right: 2vmin;
+			font-size: 2.65vmin;
+			color: whitesmoke;
+			border-radius: 5px;
+			font-family: 'Lobster', cursive;
+			background: #1E1E1E;
+
+			border-color: #1E1E1E;
+		}
+
+
+
 
 		#homework {
 			font-style: 'Lobster', cursive;
@@ -305,6 +372,50 @@ body {
 /* Parents */
 
 /* Links */
+
+.link-container {
+	background: #5B5B5B;
+	padding: 2%;
+	font-size: 4%;
+	
+	display: flex;
+	flex-direction: column;
+}
+
+	.link-object {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+
+		.link-information {
+			display: flex;
+			flex-direction: column;
+			
+			border: thick;
+			border-color: black;
+		}
+
+			.link-title {
+				color: black;
+				text-decoration: none;
+
+				font-size: 100%;
+				font-family: "Gill Sans", "Gill Sans MT", "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, "sans-serif";
+				
+				margin-bottom: 1%;
+			}
+
+			.link-description {
+				font-size: 50%;
+				font-family: Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", "serif";
+			}
+
+		.link-image {
+
+		}
+
+
 
 /* Photos */
 

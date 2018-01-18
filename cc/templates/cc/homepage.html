@@ -61,7 +61,31 @@
 					$('.hover-text-container').remove();
         		},
 			});
+			
+			//This is awesome, I don't exactly understand how it works.  Got it from < https://stackoverflow.com/questions/454202/creating-a-textarea-with-auto-resize>, 'A Completely Simlple...' >.  It makes the size of the textarea scale with the content.
+			$('textarea').each(function () {
+					this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+				}).on('input', function () {
+					this.style.height = 'auto';
+					this.style.height = (this.scrollHeight) + 'px';
+				});
+			
+			//This avoids some string encoding problems. 
+			$('textarea').val( JSON.parse("{{ monthly_post_text_json|escapejs }}"))
+			$('#monthly-header-form').val( JSON.parse(" {{ monthly_post_title_json|escapejs }}"))
+			
 		});	
+		
+	//This disables the 'Enter' key from submitting forms, and instead makes it clear focus <unless you are editing the header, then it makes 
+	//the focus shift down to the textarea. 
+	$(document).keypress(function(event){
+    	if (event.which == '13' && $('#monthly-header-form').is(':focus')) {
+        	event.preventDefault();
+			$('#monthly-header-form').blur();
+			$('#monthly-text-form').focus();
+      	}
+	});
+
 	</script>
 </head>
 <body>
@@ -75,24 +99,38 @@
 			<div class="page-image"></div>
 		</div>
 		<div class="navbar">
-			
 			<div class="navbar-layout">
-				<div class="navitem active"><a class="anchor" href="ccsite/home">Home</a></div>
-				<div class="navitem"><a class="anchor" href="ccsite/faq">FAQ</a></div>
-				<div class="navitem"><a class="anchor" href="ccsite/bio">Bio</a></div>
-				<div class="navitem"><a class="anchor" href="ccsite/parents">Parents</a></div>
-				<div class="navitem"><a class="anchor" href="ccsite/links">Links</a></div>
-				<div class="navitem"><a class="anchor" href="ccsite/photos">Photos</a></div>
+				<div class="navitem active"><a class="anchor" name="home" href="/">Home</a></div>
+				<div class="navitem"><a class="anchor" name="math" href="math">Math</a></div>
+				<div class="navitem"><a class="anchor" name= "bio" href="bio">Bio</a></div>
+				<div class="navitem"><a class="anchor" name= "parents" href="parents">Parents</a></div>
+				<div class="navitem"><a class="anchor" name= "links" href="links">Links</a></div>
+				<div class="navitem"><a class="anchor" name= "photos" href="photos">Photos</a></div>
 			</div>
-			
 		</div>
 	</div>
 	<div class="lower-wrapper">
 		<div class="maincontent">
-			<div id="monthly-post">
-				<h2 id="monthly-header">Monthly Post</h2>
-				<p class="paragraphtext" id="monthly-text"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur mollis gravida ligula convallis volutpat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Ut ipsum justo, auctor vitae lacus eget, viverra mollis turpis. Donec quis purus quis est porttitor fringilla. Donec pharetra imperdiet ante vel pharetra. Aenean id aliquet urna. Quisque eget laoreet nisi. Sed interdum orci neque, id sodales neque semper in.</p>
+			{% if request.user.username == 'parent' %}
+			<div id="monthly-post" class="monthly-post">
+				<h2 class="monthly-header"> {{ monthly_post.title }} </h2>
+				<p class="paragraphtext monthly-text"> {{ monthly_post.text }} </p>
 			</div>
+			{% endif %}
+			{% if request.user.username == 'carrieUser' %}
+			<div id="monthly-post-form-div" class="monthly-post">
+				<form class="monthly-post-form" action="/" method="post">
+					{% csrf_token %}
+					{% for field in form %}
+						{{ field }}
+					{% endfor %}
+					<div class="monthly-post-button-wrapper">
+						<input type="submit" name="save" value="Save" class="monthly-post-form-save">
+						<input type="submit" name="new" value="New" class="monthly-post-form-new">
+					</div>
+				</form>
+			</div>
+			{% endif %}
 			<div id="homework">
 				<h2 id="homework-header"></h2>
 				<div id="calendar"></div>
