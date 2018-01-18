@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+	<title>CarriesClass</title>
+	<meta charset="utf-8">
+	<link href="https://fonts.googleapis.com/css?family=Fugaz+One|Lobster|Pangolin|Permanent+Marker" rel="stylesheet">
+		<!-- 'Pangolin', 'Lobster', 'Permanent Marker', 'Fugaz One'. -->	
+	<link href="https://fonts.googleapis.com/css?family=Berkshire+Swash|Waiting+for+the+Sunrise|Zeyada" rel="stylesheet">
+	<link rel="stylesheet" href="{% static 'cc/styles/main.css' %}" type="text/css"/> <!-- main style sheet -->
+	
+	<script type="text/javascript"> 
+		$(document).ready(function() {
+		}
+	</script>
+</head>
+
+<body>
+<div class="site-border"></div>
+<div class="site-body">
+	<div class="upper-wrapper">
+		<div class="header-and-image">
+			<div class="header-gap"></div>
+			<div class="header-welcome"><span id="header-text">Carrie's Class</span></div>
+			<div class="header-image-gap"></div>
+			<div class="page-image"></div>
+		</div>
+		<div class="navbar">
+			<div class="navbar-layout">
+				<div class="navitem"><a class="anchor" name="home_lnk" href="home">Home</a></div>
+				<div class="navitem"><a class="anchor" name="math_lnk" href="math">Math</a></div>
+				<div class="navitem"><a class="anchor" name= "bio_lnk" href="bio">Bio</a></div>
+				<div class="navitem"><a class="anchor" name= "parents_lnk" href="parents">Parents</a></div>
+				<div class="navitem"><a class="anchor" name= "links_lnk" href="links">Links</a></div>
+				<div class="navitem"><a class="anchor" name= "photos_lnk" href="photos">Photos</a></div>
+			</div>
+		</div>
+	</div>
+	<div class="lower-wrapper">
+		<div class="maincontent">
+			
+			<!--  this is where the content goes, also remember to update the 'active' attribute in the navbar  -->
+			
+		</div>
+	</div>
+	<div id="lowest-banner-image"></div>
+</div>
+<div class="site-border"></div>
+</body>
+</html>
