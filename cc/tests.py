@@ -4,6 +4,8 @@
 """ 
 This is deprecated.  I switched to having the tests in a separate folder.  I kept this just in case. 
 
+this is a test comment to commit 
+
 """
 
 from datetime import date
