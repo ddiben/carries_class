@@ -217,32 +217,32 @@ body {
 			font-size: 0;
 		}
 
-		.monthly-post-form-save {
-			box-sizing: border-box;
-			padding-left: 2vmin;
-			padding-right: 2vmin;
-			font-size: 2.65vmin;
-			color: whitesmoke;
-			border-radius: 5px;
-			font-family: 'Lobster', cursive;
-			background: #1E1E1E;
+			.monthly-post-form-save {
+				box-sizing: border-box;
+				padding-left: 2vmin;
+				padding-right: 2vmin;
+				font-size: 2.65vmin;
+				color: whitesmoke;
+				border-radius: 5px;
+				font-family: 'Lobster', cursive;
+				background: #1E1E1E;
 
-			margin-right: 1.5%;
-			border-color: #1E1E1E;
-		}
+				margin-right: 1.5%;
+				border-color: #1E1E1E;
+			}
 
-		.monthly-post-form-new {
-			box-sizing: border-box;
-			padding-left: 2vmin;
-			padding-right: 2vmin;
-			font-size: 2.65vmin;
-			color: whitesmoke;
-			border-radius: 5px;
-			font-family: 'Lobster', cursive;
-			background: #1E1E1E;
+			.monthly-post-form-new {
+				box-sizing: border-box;
+				padding-left: 2vmin;
+				padding-right: 2vmin;
+				font-size: 2.65vmin;
+				color: whitesmoke;
+				border-radius: 5px;
+				font-family: 'Lobster', cursive;
+				background: #1E1E1E;
 
-			border-color: #1E1E1E;
-		}
+				border-color: #1E1E1E;
+			}
 
 
 
@@ -375,45 +375,122 @@ body {
 
 .link-container {
 	background: #5B5B5B;
-	padding: 2%;
+	padding: 1%;
 	font-size: 4%;
+	padding-bottom: 0;
 	
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
+	
 }
 
 	.link-object {
 		display: flex;
-		flex-direction: row;
+		flex-direction: column;
 		justify-content: space-between;
+		
+		width: 100%;
 	}
 
 		.link-information {
 			display: flex;
-			flex-direction: column;
+			flex-direction: row;
+			
+			justify-content: space-between;
 			
 			border: thick;
 			border-color: black;
+			
+			margin-bottom: 1%;
+			
+			width: 100%;
+			
+			background-color: #5B5B5B;
+			
 		}
 
-			.link-title {
-				color: black;
-				text-decoration: none;
-
-				font-size: 100%;
-				font-family: "Gill Sans", "Gill Sans MT", "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, "sans-serif";
+			.link-fields-wrapper {
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
 				
-				margin-bottom: 1%;
+				width: 100%;
+				
 			}
 
-			.link-description {
-				font-size: 50%;
-				font-family: Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", "serif";
+			.link-parent{
+				display: flex;
+				flex-direction: column;
+				
+				background: cornflowerblue;
 			}
 
-		.link-image {
+				.link-title {
+					color: white;
+					text-decoration: none;
 
-		}
+					font-size: 100%;
+					font-family: "Gill Sans", "Gill Sans MT", "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, "sans-serif";
+
+					margin-bottom: 1%;
+
+					width: 99.7%;
+				}
+
+				.link-description {
+					font-size: 50%;
+					font-family: Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", "serif";
+
+					width: 100%
+						
+				}
+
+				.link-url {
+					font-size: 50%;
+					font-family: Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", "serif";
+
+					width: 99.7%;
+					
+					margin-top: 1%;
+					
+					background: #5B5B5B;
+					border: none;
+				}
+
+.link-title-form {
+	background: #5B5B5B;
+	border: none;
+	margin-bottom: .5%;
+	overflow: none;
+
+}
+
+.link-description-form {
+	background: #5B5B5B;
+	border: none;
+	resize: none;
+}
+
+			.link-button-wrapper {
+				display: flex;
+				flex-direction: column;
+				justify-content: flex-end;
+				
+				margin-left: 3%;
+				margin-right: 1.5%;
+			}
+
+				.link-button-save {
+
+				}
+
+				.link-button-new {
+					margin-top: 10%;
+				}
+
+				.link-button-delete {
+					margin-bottom: 10%;
+				}
 
 
 

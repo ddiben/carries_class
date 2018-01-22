@@ -29,10 +29,6 @@ class PostEditForm(forms.ModelForm):
         fields = ('title', 'text',)
         
         # She doesn't need to be able to select a previous post, but we'll save them anyway so that I can go in and bring up old ones through the admin.  
-        
-        
-"""  make the link have a click-able title (that is the link), with a description (or maybe with a button that is the link), and a thumbnail preview
-    of the link's main page """
     
 class LinkEditForm(forms.ModelForm):
     
@@ -40,8 +36,10 @@ class LinkEditForm(forms.ModelForm):
         model = Links
         
         widgets = {
-            'title': forms.TextInput(attrs= {'class': 'link-title', 'id': 'link-title-form', 'autocomplete': 'off'}),
-            'url': forms.TextInput(),
-            'description': forms.Textarea(attrs= {'class': 'link-description', 'id': 'link-description-form', 'autocomplete': 'off'})
+            'title': forms.TextInput(attrs= {'class': 'link-title link-title-form', 'autocomplete': 'off'}),
+            'description': forms.Textarea(attrs= {'class': 'link-description link-description-form', 'rows': '5', 'autocomplete': 'off'}),
+            'url': forms.URLInput(attrs= {'class': 'link-url link-url-form', 'autocomplete': 'off',  })
+            
         }
         fields = ('title', 'description', 'url')
+        

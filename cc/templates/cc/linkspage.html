@@ -9,10 +9,19 @@
 	<link href="https://fonts.googleapis.com/css?family=Berkshire+Swash|Waiting+for+the+Sunrise|Zeyada" rel="stylesheet">
 	<link rel="stylesheet" href="{% static 'cc/styles/main.css' %}" type="text/css"/> <!-- main style sheet -->
 	
+	<script src="{% static 'cc/fullCalendar/scripts/jquery.min.js' %}" type="text/javascript"></script>
+	
 	<script type="text/javascript"> 
 		$(document).ready(function() {
 			
-		});		
+			$('textarea').each(function () {
+					this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+				}).on('input', function () {
+					this.style.height = 'auto';
+					this.style.height = (this.scrollHeight) + 'px';
+				});
+			
+		});
 	</script>
 
 </head>
@@ -31,10 +40,10 @@
 			<div class="navbar-layout">
 				<div class="navitem"><a class="anchor" name="home_lnk" href="/">Home</a></div>
 				<div class="navitem"><a class="anchor" name="math_lnk" href="math">Math</a></div>
-				<div class="navitem"><a class="anchor" name= "bio_lnk" href="bio">Bio</a></div>
-				<div class="navitem"><a class="anchor" name= "parents_lnk" href="parents">Parents</a></div>
-				<div class="navitem active"><a class="anchor" name= "links_lnk" href="links">Links</a></div>
-				<div class="navitem"><a class="anchor" name= "photos_lnk" href="photos">Photos</a></div>
+				<div class="navitem"><a class="anchor" name="bio_lnk" href="bio">Bio</a></div>
+				<div class="navitem"><a class="anchor" name="parents_lnk" href="parents">Parents</a></div>
+				<div class="navitem active"><a class="anchor" name="links_lnk" href="links">Links</a></div>
+				<div class="navitem"><a class="anchor" name="photos_lnk" href="photos">Photos</a></div>
 			</div>
 		</div>
 	</div>
@@ -43,33 +52,36 @@
 			{% if user.username == 'parent' %}
 				<div class="link-container">
 					<div class="link-object">
-						{% for link in linksToDisplay %}
-						<div class="link-information">
+						{% for link in links %}
+						<div class="link-information link-parent">
 							<a class="link-title" href=" {{ link.url }}"> {{ link.title }}</a>
 							<p class="link-description"> {{ link.description }} </p>
 						</div>
 						{% endfor %}
 					</div>
 				</div>
-				
-				<!--	{% for link in linksToDisplay %}
-						<h2 href=" {{ link.url }} "> {{ link.title }} </h2>
-						<p class="description"> {{ link.description }} </p>
-						<iframe src=" {{ link.url }} " frameborder="0"></iframe>
-					{% endfor %}
-				</div> -->
 			{% endif %}
 			
 			{% if user.username == 'carrieUser' %}
-			{%  csrf_token %}
-			
-				<div class="link-form-wrapper">
-					<form class="link-form" action="links">
-						
-						
-					</form>
+				<div class="link-container">
+					<div class="link-object">
+						{% for form in forms %}
+						<form class="link-information link-form" action="/links/" method="post">
+							{%  csrf_token %}
+							<div class="link-fields-wrapper">
+							{% for field in form %}
+							{{ field }}
+							{% endfor %}
+							</div>
+							<div class="link-button-wrapper" >
+								<input type="submit" name="delete" value="Delete" class="monthly-post-form-save link-button-delete">
+								<input type="submit" name="save" value="Save" class="monthly-post-form-save link-button-save">
+								<input type="submit" name="new" value="New" class="monthly-post-form-new link-button-new">	
+							</div>
+						</form>
+						{% endfor %}
+					</div>
 				</div>
-			
 			{% endif %}
 			<!--  this is where the content goes, also remember to update the 'active' attribute in the navbar  -->
 			
