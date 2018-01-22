@@ -154,8 +154,6 @@ class IntegratedTest(ccIntegratedTestCase):
         
         self.selenium.find_element_by_name('links_lnk').click()
         
-        time.sleep(5)
-        
         self.scan_page_for(["Party City 2", "Party City 3"])
         
         self.login('carriespassword')

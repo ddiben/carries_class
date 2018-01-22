@@ -94,6 +94,8 @@ def links(request):
         
     forms = []
     if request.user.username == 'carrieUser':
+        Links.objects.filter(title="No Links").delete()
+        
         for link in linksToDisplay:
             forms.append(LinkEditForm(instance=link))
         
