@@ -39,7 +39,6 @@ class LinkEditForm(forms.ModelForm):
             'title': forms.TextInput(attrs= {'class': 'link-title link-title-form', 'autocomplete': 'off'}),
             'description': forms.Textarea(attrs= {'class': 'link-description link-description-form', 'rows': '5', 'autocomplete': 'off'}),
             'url': forms.URLInput(attrs= {'class': 'link-url link-url-form', 'autocomplete': 'off',  })
-            
         }
         fields = ('title', 'description', 'url')
         

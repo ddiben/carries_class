@@ -102,8 +102,6 @@ def links(request):
         return render(request, 'cc/linkspage.html', {'links': linksToDisplay, 'forms': forms})
     
     parentLinks = Links.objects.exclude(title="Carrie's Class")
-    
-    print(parentLinks)
 
     if len(parentLinks) == 0:
         Links.objects.create(
