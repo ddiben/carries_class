@@ -10,12 +10,6 @@ class MonthlyPosts(models.Model):
     #if this is true, then this is the BlogPost that is displayed (no two posts should have the same title)
     to_display = models.BooleanField(default=False)
     
-    def __str__(self):
-        string = "{0}: {1} || {2}...".format(self.to_display, self.title, self.text[:15])
-        return string
-
-    """ Have one displayed <and editable for carrieUser>, but a drop-down menu that allows the display of any previous post from the school year """
-    
     def set_post_to_display(self):
         displayedPosts = MonthlyPosts.objects.filter(to_display=True)
         if len(displayedPosts) == 0:
@@ -25,10 +19,16 @@ class MonthlyPosts(models.Model):
                 post.to_display = False
                 post.save()
             self.to_display = True
+            
+    def __str__(self):
+        string = "{0}: {1} || {2}...".format(self.to_display, self.title, self.text[:15])
+        return string
     
 class Links(models.Model):
     title = models.CharField(max_length=(300),)
-    url = models.URLField()
+    url = models.URLField(unique=False) # this is the source of some confusion
     description = models.TextField()
     
-        
+    def __str__(self):
+        return "{} : {}".format(self.title, self.url)
+    

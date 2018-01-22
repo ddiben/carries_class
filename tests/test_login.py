@@ -7,12 +7,6 @@ from django.contrib.auth.models import User
 from cc.views import verifyUser, homepage
 
 class LoginTest(ccTestCase):
-    
-    #Overriding method in 'TestCast'
-    def setUp(self):
-        super().setUp()
-        
-        self.factory = RequestFactory()
         
     #Test the Login's redirect for users that are not logged in (tests for logged-in users occur later) 
     def test_login_redirect(self):
@@ -38,9 +32,7 @@ class LoginTest(ccTestCase):
         
         # no 'user' until after login
         self.assertIsNone(response.context)
-        response = self.client.post(reverse('login'), {'password_field' : password}, follow=True)
-        self.assertIsNotNone(response.context)
-        self.assertTrue(response.context['user'].is_authenticated())
+        self.login(password)
         
         # no longer redirects
         response = self.client.get(reverse('home'))

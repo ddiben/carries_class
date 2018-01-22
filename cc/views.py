@@ -59,24 +59,70 @@ def homepage(request, expTime=9000):
 def links(request):
     if request.method == 'POST':
         if request.user.username == 'carrieUser':
-            
             form = LinkEditForm(request.POST)
             
+            if request.POST.get('new'):
+                blanks = Links.objects.filter(url="https://www.carriesclass.com")
+                if (len(blanks) == 0):
+                    create_blank_link()
+                else:
+                    blanks.delete()
+                    create_blank_link()
+                    
+            if request.POST.get('delete'):
+                link = Links.objects.get(
+                    url=request.POST['url']
+                    )
+                link.delete()
+                
             if form.is_valid():
-                
-                Links.objects.create(
-                    title=form.cleaned_data['title'], 
-                    url=form.cleaned_data['url'], 
-                    description=form.cleaned_data['description'])
-                
-                
-            
-    
+                if request.POST.get('save'):
+                    changedLink = Links.objects.get_or_create(
+                        url=form.cleaned_data['url'])[0] # .get_or_create() returns a tuple (obj, bool(if created))
+                    
+                    changedLink.title = form.cleaned_data['title']
+                    changedLink.description = form.cleaned_data['description']
+                    changedLink.save()
+                    
+                    Links.objects.filter(url="https://www.carriesclass.com").delete()
+                    
     linksToDisplay = Links.objects.all()
     
-    return render(request, 'cc/linkspage.html', {'links': linksToDisplay, 'numLinks': len(linksToDisplay)})
+    if len(linksToDisplay) == 0:
+        create_blank_link()
+        linksToDisplay = Links.objects.all()
+        
+    forms = []
+    if request.user.username == 'carrieUser':
+        for link in linksToDisplay:
+            forms.append(LinkEditForm(instance=link))
+        
+        return render(request, 'cc/linkspage.html', {'links': linksToDisplay, 'forms': forms})
+    
+    parentLinks = Links.objects.exclude(title="Carrie's Class")
+    
+    print(parentLinks)
 
-# the login view, but I didin't want to overwrite Django's (because that was more complicated than just calling mine something else). 
+    if len(parentLinks) == 0:
+        Links.objects.create(
+            title="No Links",
+            description="There are currently no links to display",
+            url="https://carriesclass.com"
+            )
+        
+        parentLinks = Links.objects.filter(title="No Links")
+        
+    return render(request, 'cc/linkspage.html', {'links': parentLinks})
+
+def create_blank_link():
+    Links.objects.create(
+        title="Carrie's Class",
+        description="Dylan was here.",
+        url="https://www.carriesclass.com"
+    )
+    
+
+# the 'login' view, but I didin't want to overwrite Django's (because that was more complicated than just calling mine something else). 
 def verifyUser(request):
     secondattempt = False
     if request.method == 'POST':
