@@ -38,12 +38,12 @@
 		</div>
 		<div class="navbar">
 			<div class="navbar-layout">
-				<div class="navitem"><a class="anchor" name="home_lnk" href="/">Home</a></div>
-				<div class="navitem"><a class="anchor" name="math_lnk" href="math">Math</a></div>
-				<div class="navitem"><a class="anchor" name="bio_lnk" href="bio">Bio</a></div>
-				<div class="navitem"><a class="anchor" name="parents_lnk" href="parents">Parents</a></div>
-				<div class="navitem active"><a class="anchor" name="links_lnk" href="links">Links</a></div>
-				<div class="navitem"><a class="anchor" name="photos_lnk" href="photos">Photos</a></div>
+				<div class="navitem"><a class="anchor" name="home_lnk" href="{% url 'home' %}">Home</a></div>
+				<div class="navitem"><a class="anchor" name="math_lnk" href="% url 'math' %}">Math</a></div>
+				<div class="navitem"><a class="anchor" name= "bio_lnk" href="% url 'bio' %}">Bio</a></div>
+				<div class="navitem"><a class="anchor" name= "parents_lnk" href="% url 'parents' %}">Parents</a></div>
+				<div class="navitem active"><a class="anchor" name= "links_lnk" href="{% url 'links' %}">Links</a></div>
+				<div class="navitem"><a class="anchor" name="photos_lnk" href="{% url 'photos' %}">Photos</a></div>
 			</div>
 		</div>
 	</div>
@@ -53,10 +53,14 @@
 				<div class="link-container">
 					<div class="link-object">
 						{% for link in links %}
-						<div class="link-information link-parent">
-							<a class="link-title" href=" {{ link.url }}"> {{ link.title }}</a>
+						
+						<div class="link-information link-parent card">
+							<a class="album-anchor" href=" {{ link.url }}">
+							<p class="link-title"> {{ link.title }}</p>
 							<p class="link-description"> {{ link.description }} </p>
+							</a>
 						</div>
+						
 						{% endfor %}
 					</div>
 				</div>
@@ -88,6 +92,7 @@
 		</div>
 	</div>
 	<div id="lowest-banner-image"></div>
+	
 </div>
 <div class="site-border"></div>
 </body>

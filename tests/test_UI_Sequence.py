@@ -178,7 +178,41 @@ class IntegratedTest(ccIntegratedTestCase):
         
         self.scan_page_for(["Dylan was here"], booli=False)
         
+    def test_photos(self):
+        self.login('carriespassword')
+        
+        path_to_images = '/Users/dylandibenedetto/Desktop/test_images/'
+        
+        self.selenium.find_element_by_name('photos_lnk').click()
+        self.scan_page_for(["New Album"])
+        
+        self.selenium.find_element_by_name('blank_album').click()
+        
+        multiple_photos = ""
+        for photo in ["IMG_0022.PNG\n", "IMG_0030.JPG\n", "IMG_0037.JPG"]:
+            multiple_photos += "{}{}".format(path_to_images, photo)
     
+        self.clear_and_populate_fields([
+            ('id', 'id_albumTitle', 'test multiple uploads'),
+            ('id', 'id_albumImage', '{}IMG_0020.PNG'.format(path_to_images)),
+            ('id', 'id_date', '2012-5-9'),
+            ('id', 'id_photos', multiple_photos)
+            ])
+        
+        self.selenium.find_element_by_name("album-form-create").click()
+        
+        self.scan_page_for(["test multiple uploads"])
+        
+        self.selenium.find_element_by_name('delete').click()
+        
+        time.sleep(5)
+        
+        self.scan_page_for(["test multiple uploads"], booli=False)
+        
+        time.sleep(10)
+        
+    def test_logout(self):
+        self.fail("not yet implemented") 
         
         
     

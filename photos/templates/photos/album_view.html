@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+	<title>CarriesClass</title>
+	<meta charset="utf-8">
+	<link href="https://fonts.googleapis.com/css?family=Fugaz+One|Lobster|Pangolin|Permanent+Marker" rel="stylesheet">
+		<!-- 'Pangolin', 'Lobster', 'Permanent Marker', 'Fugaz One'. -->	
+	<link href="https://fonts.googleapis.com/css?family=Berkshire+Swash|Waiting+for+the+Sunrise|Zeyada" rel="stylesheet">
+	<link rel="stylesheet" href="{% static 'cc/styles/main.css' %}" type="text/css"/> <!-- main style sheet -->
+
+	<!-- Core CSS file -->
+<link rel="stylesheet" href="{% static 'photos/photoswipe/photoswipe.css' %}">
+
+<!-- Skin CSS file (styling of UI - buttons, caption, etc.)
+     In the folder of skin CSS file there are also:
+     - .png and .svg icons sprite, 
+     - preloader.gif (for browsers that do not support CSS animations) -->
+<link rel="stylesheet" href="{% static 'photos/photoswipe/default-skin/default-skin.css' %}"> 
+
+	<script src="{% static 'cc/fullCalendar/scripts/jquery.min.js' %}" type="text/javascript"></script>
+
+<!-- Core JS file -->
+<script src="{% static 'photos/photoswipe/photoswipe.min.js' %}"></script> 
+
+<!-- UI JS file -->
+<script src="{% static 'photos/photoswipe/photoswipe-ui-default.min.js' %}"></script> 
+	
+	
+		
+	
+</head>
+
+<body>
+<div class="site-border"></div>
+<div class="site-body">
+	<div class="upper-wrapper">
+		<div class="header-and-image">
+			<div class="header-gap"></div>
+			<div class="header-welcome"><span id="header-text">Carrie's Class</span></div>
+			<div class="header-image-gap"></div>
+			<div class="page-image"></div>
+		</div>
+		<div class="navbar">
+			<div class="navbar-layout">
+				<div class="navitem"><a class="anchor" name="home_lnk" href="{% url 'home' %}">Home</a></div>
+				<div class="navitem"><a class="anchor" name="math_lnk" href="% url 'math' %}">Math</a></div>
+				<div class="navitem"><a class="anchor" name= "bio_lnk" href="% url 'bio' %}">Bio</a></div>
+				<div class="navitem"><a class="anchor" name= "parents_lnk" href="% url 'parents' %}">Parents</a></div>
+				<div class="navitem"><a class="anchor" name= "links_lnk" href="{% url 'links' %}">Links</a></div>
+				<div class="navitem active"><a class="anchor" name= "photos_lnk" href="{% url 'photos' %}">Photos</a></div>
+			</div>
+		</div>
+	</div>
+	<div class="lower-wrapper">
+		<div class="maincontent">
+			
+			<div class="photo-container">
+				{% for photo in photos %}
+				<a class="card photo-card" href="javascript:openPhotoSwipe({{ forloop.counter0 }});">
+					<img class="album-image" src="{{ photo.thumb.url }}" alt="unable to load photo"/>
+				</a>
+				{% endfor %}
+			</div>
+			
+		</div>	
+			
+			<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+			
+</div>
+
+	</div>
+	<div id="lowest-banner-image"></div>
+</div>
+<div class="site-border"></div>
+</body>
+	<script type="text/javascript"> 
+
+	var openPhotoSwipe = function(startsAtIndex) {
+		
+		if (!startsAtIndex) {
+        	startsAtIndex = 0;
+    	}
+		
+		var pswpElement = document.querySelectorAll('.pswp')[0];
+
+//		// build items array
+//		var items = [
+//			{% for photo in photos %} 
+//			{
+//				src: '{{ photo.image.url }}',
+//				w: {{ photo.width }},
+//				h: {{ photo.height }}
+//			},
+//			{% endfor %}
+//		];
+		
+		var photos = [
+            {% for photo in photos %}
+                {
+                    src: '{{ photo.image.url }}',
+                    w:  {{ photo.width }},
+                    h:  {{ photo.height }}
+                },
+            {% endfor %}
+        ];
+		
+		// define options (if needed)
+		var options = {        
+			history: true,
+			focus: true,
+			closeOnScroll: false,
+			shareEl: false,
+			index: startsAtIndex,
+		};
+
+		var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, photos, options);
+
+		gallery.init();
+	};
+
+//	$('.photo-card').click( function () {
+//		openPhotoSwipe;
+//	});
+		
+	</script>
+</html>

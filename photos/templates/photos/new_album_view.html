@@ -28,22 +28,34 @@
 		<div class="navbar">
 			<div class="navbar-layout">
 				<div class="navitem"><a class="anchor" name="home_lnk" href="{% url 'home' %}">Home</a></div>
-				<div class="navitem"><a class="anchor" name="math_lnk" href="% url 'math' %}">Math</a></div>
-				<div class="navitem"><a class="anchor" name= "bio_lnk" href="% url 'bio' %}">Bio</a></div>
-				<div class="navitem"><a class="anchor" name= "parents_lnk" href="% url 'parents' %}">Parents</a></div>
+				<div class="navitem"><a class="anchor" name="math_lnk" href="../../../cc/templates/cc/% url 'math' %}">Math</a></div>
+				<div class="navitem"><a class="anchor" name= "bio_lnk" href="../../../cc/templates/cc/% url 'bio' %}">Bio</a></div>
+				<div class="navitem"><a class="anchor" name= "parents_lnk" href="../../../cc/templates/cc/% url 'parents' %}">Parents</a></div>
 				<div class="navitem"><a class="anchor" name= "links_lnk" href="{% url 'links' %}">Links</a></div>
-				<div class="navitem"><a class="anchor" name= "photos_lnk" href="{% url 'photos' %}">Photos</a></div>
+				<div class="navitem active"><a class="anchor" name= "photos_lnk" href="{% url 'photos' %}">Photos</a></div>
 			</div>
 		</div>
 	</div>
 	<div class="lower-wrapper">
 		<div class="maincontent">
-			
-			<!--  this is where the content goes, also remember to update the 'active' attribute in the navbar  -->
-			
+			<div class="new-album-container">
+				<form method="post" enctype="multipart/form-data" class="new-album-form">
+					{% csrf_token %}
+					
+					{% for field in form %}
+					{{ field }}
+					<div style="margin-bottom: 10%"></div>
+					{% endfor %}
+
+					<input type="submit" name="album-form-create" class="create-album-button monthly-post-form-save" value="Create">
+				</form>
+			</div>
 		</div>
 	</div>
 	<div id="lowest-banner-image"></div>
+	<a href="{% url 'login' %}">
+		<button id="logout-float" class="monthly-post-form-save">logout</button>
+	</a>
 </div>
 <div class="site-border"></div>
 </body>
