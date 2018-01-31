@@ -44,7 +44,7 @@
 			<div class="album-container">
 				{% if user.username == 'carrieUser' %}
 					<a class="card album-card album-anchor" name="blank_album" href="{% url 'new_album' %}">  
-						<img class="album-image" src="../../../media/blank/blank.JPG" alt="blank image"/>
+						<img class="album-image" src="{% static 'images/blank.JPG' %}" alt=""/>
 						<div class="album-information">
 							<p class="album-title"> New Album </p>
 						</div>
