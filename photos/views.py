@@ -9,7 +9,7 @@ from .forms import AlbumForm
 
 from django.http.response import HttpResponseRedirect
 
-from cc3site.settings import MEDIA_ROOT, BASE_DIR
+from cc3site.settings import MEDIAFILES_LOCATION as MEDIA_ROOT #bucket compatibility
 import os
 import subprocess
 
@@ -22,7 +22,7 @@ def photospage(request):
                 try:
                     Album.objects.get(slug=request.POST['slug']).delete()
                     
-                    cleanup_media = "python3 manage.py cleanup_unused_media -e blank/* -e images/* -e .DS_Store --noinput"
+                    cleanup_media = "python3 manage.py cleanup_unused_media -e images/* -e .DS_Store --noinput"
                     cmd_list = cleanup_media.split()
                     cleaning = subprocess.Popen(cmd_list)
                     cleaning.wait()
