@@ -1,0 +1,13 @@
+coverage==4.4.2
+Django==1.11.6
+django-appconf==1.0.2
+django-cleanup==2.1.0
+django-clear-cache==0.3
+django-imagekit==4.0.2
+django-unused-media==0.1.10
+ExifRead==2.1.2
+pilkit==2.0
+Pillow==5.0.0
+pytz==2017.2
+selenium==3.8.1
+six==1.11.0
