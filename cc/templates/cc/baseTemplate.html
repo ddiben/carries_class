@@ -9,9 +9,9 @@
 	<link href="https://fonts.googleapis.com/css?family=Berkshire+Swash|Waiting+for+the+Sunrise|Zeyada" rel="stylesheet">
 	<link rel="stylesheet" href="{% static 'cc/styles/main.css' %}" type="text/css"/> <!-- main style sheet -->
 	
+	<script src="{% static 'cc/fullCalendar/scripts/jquery.min.js' %}" type="text/javascript"></script>
+	
 	<script type="text/javascript"> 
-		$(document).ready(function() {
-		}
 	</script>
 </head>
 
@@ -44,6 +44,9 @@
 		</div>
 	</div>
 	<div id="lowest-banner-image"></div>
+	<a href="{% url 'login' %}">
+		<button id="logout-float" class="monthly-post-form-save">logout</button>
+	</a>
 </div>
 <div class="site-border"></div>
 </body>

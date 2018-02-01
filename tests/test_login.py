@@ -72,8 +72,24 @@ class LoginTest(ccTestCase):
         
         self.assertEqual(request.session['_session_expiry'], .5) 
         
-        # I think I need another view other than the home view to try and access, so that the 'request._session_expiry' doesn't get reset.
+    def test_logout_deauthentication(self):
         
-        # I can't figure out how to render the homepage again without it resetting the resuest.session's expiration time....it works when I manually enter it 
-        # though (change the 'homepage' view function to have 'expTime' = .5 and then sleep(1) between client.get('home')'s.    
+        self.login('carriespassword')
+        response = self.client.get(reverse('links'))
+        self.assertEqual(response.status_code, 200)
+        self.client.get(reverse('login'))
+        response = self.client.get(reverse('links'))
+        self.assertEqual(response.status_code, 302)
+        
+        self.login('parentpassword')
+        response = self.client.get(reverse('links'))
+        self.assertEqual(response.status_code, 200)
+        self.client.get(reverse('login'))
+        response = self.client.get(reverse('links'))
+        self.assertEqual(response.status_code, 302)
+        
+        
+        
+        
+        
         

@@ -208,11 +208,23 @@ class IntegratedTest(ccIntegratedTestCase):
         time.sleep(5)
         
         self.scan_page_for(["test multiple uploads"], booli=False)
-        
-        time.sleep(10)
+
+        # possibly do a quick check through the file system to see if there are any empty images or directories left over?
         
     def test_logout(self):
-        self.fail("not yet implemented") 
         
+        for page_link in ['links_lnk', 'home_lnk', 'photos_lnk']:
+            self.login('carriespassword')
+            self.selenium.find_element_by_name(page_link).click()
+            self.selenium.find_element_by_id('logout-float').click() # you can only access this button if login is successful 
+            self.assertEqual(self.selenium.current_url[-7:], reverse('login'))
+            
+        for page_link in ['links_lnk', 'home_lnk', 'photos_lnk']:
+            self.login('parentpassword')
+            self.selenium.find_element_by_name(page_link).click()
+            self.selenium.find_element_by_id('logout-float').click()
+            self.assertEqual(self.selenium.current_url[-7:], reverse('login'))
+            
+        # authentication test occurs in 'test_login'
+            
         
-    
