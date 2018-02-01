@@ -154,8 +154,6 @@ class IntegratedTest(ccIntegratedTestCase):
         
         self.selenium.find_element_by_name('links_lnk').click()
         
-        time.sleep(5)
-        
         self.scan_page_for(["Party City 2", "Party City 3"])
         
         self.login('carriespassword')
@@ -180,7 +178,53 @@ class IntegratedTest(ccIntegratedTestCase):
         
         self.scan_page_for(["Dylan was here"], booli=False)
         
-    
+    def test_photos(self):
+        self.login('carriespassword')
         
+        path_to_images = '/Users/dylandibenedetto/Desktop/test_images/'
         
+        self.selenium.find_element_by_name('photos_lnk').click()
+        self.scan_page_for(["New Album"])
+        
+        self.selenium.find_element_by_name('blank_album').click()
+        
+        multiple_photos = ""
+        for photo in ["IMG_0022.PNG\n", "IMG_0030.JPG\n", "IMG_0037.JPG"]:
+            multiple_photos += "{}{}".format(path_to_images, photo)
     
+        self.clear_and_populate_fields([
+            ('id', 'id_albumTitle', 'test multiple uploads'),
+            ('id', 'id_albumImage', '{}IMG_0020.PNG'.format(path_to_images)),
+            ('id', 'id_date', '2012-5-9'),
+            ('id', 'id_photos', multiple_photos)
+            ])
+        
+        self.selenium.find_element_by_name("album-form-create").click()
+        
+        self.scan_page_for(["test multiple uploads"])
+        
+        self.selenium.find_element_by_name('delete').click()
+        
+        time.sleep(5)
+        
+        self.scan_page_for(["test multiple uploads"], booli=False)
+
+        # possibly do a quick check through the file system to see if there are any empty images or directories left over?
+        
+    def test_logout(self):
+        
+        for page_link in ['links_lnk', 'home_lnk', 'photos_lnk']:
+            self.login('carriespassword')
+            self.selenium.find_element_by_name(page_link).click()
+            self.selenium.find_element_by_id('logout-float').click() # you can only access this button if login is successful 
+            self.assertEqual(self.selenium.current_url[-7:], reverse('login'))
+            
+        for page_link in ['links_lnk', 'home_lnk', 'photos_lnk']:
+            self.login('parentpassword')
+            self.selenium.find_element_by_name(page_link).click()
+            self.selenium.find_element_by_id('logout-float').click()
+            self.assertEqual(self.selenium.current_url[-7:], reverse('login'))
+            
+        # authentication test occurs in 'test_login'
+            
+        

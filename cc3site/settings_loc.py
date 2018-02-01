@@ -24,14 +24,14 @@ SECRET_KEY = 'lq8y)66kwim4m_fk5^8i23a_-1xkv2br*8%nh@*g1#6!)0^xuu'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'carriesclass.com',
-'cc3test-env.xfwfmups6h.us-east-1.elasticbeanstalk.com']
-
-# Application definition
+ALLOWED_HOSTS = ['127.0.0.1', 'carriesclass.com', 'cc3test-env.xfwfmups6h.us-east-1.elasticbeanstalk.com/']
 
 # Login settings
 
-LOGIN_URL = '/login'
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = '/'
+
+# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -41,7 +41,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'cc',
-    'storages',
+    'photos',
+    'imagekit',
+    'django_unused_media',
+    'django_cleanup',
+    'clear_cache',
 ]
 
 MIDDLEWARE = [
@@ -118,27 +122,12 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-# Amazon Web Services; hooking up to the bucket
-AWS_STORAGE_BUCKET_NAME = 'cc3test-static-files'
-AWS_S3_REGION_NAME = 'us-east-2'
-AWS_ACCESS_KEY_ID = 'AKIAICU6OL6D7KEEKNVQ'
-AWS_SECRET_ACCESS_KEY = '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'
-
-# Tell Django-storages the domain to use to refer to static files
-AWS_S3_CUSTOM_DOMAIN = '%s.s3.us-east-2.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
-
-# Tell the Static-Files app to use the S3Boto3 storage when writing the collected static 
-# files (when you run collect static)
-
-STATICFILES_LOCATION = 'static'
-STATICFILES_STORAGE = 'custom_storages.StaticStorage'
-
-MEDIAFILES_LOCATION = 'media'
-MEDIAFILES_STORAGE = 'custom_storages.MediaStorage'
+#Media files (images from photo albums)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

@@ -57,6 +57,11 @@ class LinksViewTest(ccTestCase):
             
         response = self.client.get(reverse('links'))
         link = response.context['links']
+        self.assertEqual(link[0].title, "No Links")
+        
+        self.login('carriespassword')
+        response = self.client.get(reverse('links'))
+        link = response.context['links']
         self.assertEqual(link[0].title, "Carrie's Class")
         
     def test_link_forms(self):
@@ -66,8 +71,7 @@ class LinksViewTest(ccTestCase):
         forms = response.context['forms']
         links = Links.objects.all()
         
-        for i in range(0, len(links)-1):
-            forms[i].field['title']
+        self.assertEqual(len(forms), len(links))
 
 # testing the model
 class LinksTest(ccTestCase):

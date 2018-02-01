@@ -8,10 +8,11 @@
 		<!-- 'Pangolin', 'Lobster', 'Permanent Marker', 'Fugaz One'. -->	
 	<link href="https://fonts.googleapis.com/css?family=Berkshire+Swash|Waiting+for+the+Sunrise|Zeyada" rel="stylesheet">
 	<link rel="stylesheet" href="{% static 'cc/styles/main.css' %}" type="text/css"/> <!-- main style sheet -->
-	
 	<script src="{% static 'cc/fullCalendar/scripts/jquery.min.js' %}" type="text/javascript"></script>
 	
 	<script type="text/javascript"> 
+		$(document).ready(function() {
+		});
 	</script>
 </head>
 
@@ -32,14 +33,40 @@
 				<div class="navitem"><a class="anchor" name= "bio_lnk" href="% url 'bio' %}">Bio</a></div>
 				<div class="navitem"><a class="anchor" name= "parents_lnk" href="% url 'parents' %}">Parents</a></div>
 				<div class="navitem"><a class="anchor" name= "links_lnk" href="{% url 'links' %}">Links</a></div>
-				<div class="navitem"><a class="anchor" name= "photos_lnk" href="{% url 'photos' %}">Photos</a></div>
+				<div class="navitem active"><a class="anchor" name= "photos_lnk" href="{% url 'photos' %}">Photos</a></div>
 			</div>
 		</div>
 	</div>
 	<div class="lower-wrapper">
 		<div class="maincontent">
 			
-			<!--  this is where the content goes, also remember to update the 'active' attribute in the navbar  -->
+			
+			<div class="album-container">
+				{% if user.username == 'carrieUser' %}
+					<a class="card album-card album-anchor" name="blank_album" href="{% url 'new_album' %}">  
+						<img class="album-image" src="{% static 'images/blank.JPG' %}" alt=""/>
+						<div class="album-information">
+							<p class="album-title"> New Album </p>
+						</div>
+					</a>
+				{% endif %}
+				{% for album in albums %}
+					<a class="card album-card album-anchor" href="{% url 'album' album.slug %}">  
+						{% if user.username == 'carrieUser' %}
+							<form method="post" action="{% url 'photos' %}" class="album-form-delete">
+							{% csrf_token %}
+								<input type="text" name="slug" style="display: none" value="{{ album.slug }}" >
+								<input type="submit" name="delete" value="delete" id="{{album.slug}}" class="album-delete monthly-post-form-save ">
+							</form>
+						{% endif %}
+						<img class="album-image" src="{{ album.thumb.url }}" alt="{{ album.title }}"/>
+						<div class="album-information">
+							<p class="album-title"> {{album.title}} </p>
+						</div>
+					</a>
+				{% endfor %}
+			</div>
+			
 			
 		</div>
 	</div>

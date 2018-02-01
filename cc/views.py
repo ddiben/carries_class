@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 import json
+import os
 
 from django.shortcuts import render
 from django.http.response import HttpResponseRedirect
 
 from django.urls import reverse
 
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
 from .forms import LoginForm, LoginAgainForm, PostEditForm, LinkEditForm
@@ -94,14 +95,14 @@ def links(request):
         
     forms = []
     if request.user.username == 'carrieUser':
+        Links.objects.filter(title="No Links").delete()
+        
         for link in linksToDisplay:
             forms.append(LinkEditForm(instance=link))
         
         return render(request, 'cc/linkspage.html', {'links': linksToDisplay, 'forms': forms})
     
     parentLinks = Links.objects.exclude(title="Carrie's Class")
-    
-    print(parentLinks)
 
     if len(parentLinks) == 0:
         Links.objects.create(
@@ -121,9 +122,12 @@ def create_blank_link():
         url="https://www.carriesclass.com"
     )
     
-
 # the 'login' view, but I didin't want to overwrite Django's (because that was more complicated than just calling mine something else). 
 def verifyUser(request):
+    
+    if request.user.is_authenticated():
+        logout(request)
+    
     secondattempt = False
     if request.method == 'POST':
         form = LoginForm(request.POST)
