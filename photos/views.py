@@ -13,6 +13,8 @@ from cc3site.settings import MEDIAFILES_LOCATION as MEDIA_ROOT #bucket compatibi
 import os
 import subprocess
 
+from django.core.cache import cache
+
 @login_required(redirect_field_name=None)
 def photospage(request):       
     
@@ -26,7 +28,8 @@ def photospage(request):
                     cmd_list = cleanup_media.split()
                     cleaning = subprocess.Popen(cmd_list)
                     cleaning.wait()
-                    cleanupDirs("CACHE")
+                    #cleanupDirs("CACHE") - this is only necessary when not in debug mode
+                    cache.clear() 
                     
                 except:
                     print("Unable to delete album with slug: {}".format(request.POST['slug']))
