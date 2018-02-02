@@ -24,7 +24,7 @@ SECRET_KEY = 'lq8y)66kwim4m_fk5^8i23a_-1xkv2br*8%nh@*g1#6!)0^xuu'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'carriesclass.com', 'cc3test-env.xfwfmups6h.us-east-1.elasticbeanstalk.com/']
+ALLOWED_HOSTS = ['127.0.0.1', 'carriesclass.com',]
 
 # Login settings
 
