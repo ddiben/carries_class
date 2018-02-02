@@ -9,7 +9,7 @@ from .forms import AlbumForm
 
 from django.http.response import HttpResponseRedirect
 
-from cc3site.settings import MEDIAFILES_LOCATION as MEDIA_ROOT #bucket compatibility
+from cc3site.settings_live import MEDIAFILES_LOCATION as MEDIA_ROOT #bucket compatibility
 import os
 import subprocess
 
