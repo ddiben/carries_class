@@ -8,7 +8,6 @@ from django.test.client import RequestFactory
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 
-
 class ccTestCase(TestCase):
     
     @classmethod
@@ -35,7 +34,12 @@ class ccIntegratedTestCase(StaticLiveServerTestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.selenium = webdriver.Chrome('/usr/local/bin/chromedriver')
+
+        options = webdriver.ChromeOptions()
+        #options.add_argument('headless')
+        options.add_argument('window-size=980x980')
+        
+        cls.selenium = webdriver.Chrome('/usr/local/bin/chromedriver', chrome_options=options)
         cls.selenium.implicitly_wait(5)
         
     @classmethod

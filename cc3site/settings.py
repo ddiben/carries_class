@@ -130,8 +130,8 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 
-##MEDIA_URL = '/media/'
-##MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Amazon Web Services; hooking up to the bucket
 AWS_STORAGE_BUCKET_NAME = 'cc3-live' 
@@ -151,4 +151,4 @@ STATICFILES_STORAGE = 'custom_storages.StaticStorage'
 MEDIAFILES_LOCATION = 'media'
 MEDIAFILES_STORAGE = 'custom_storages.MediaStorage'
 
-DEFAULT_FILE_STORAGE = "cc3site.custom_storages.MediaStorage"
+DEFAULT_FILE_STORAGE = "custom_storages.MediaStorage"
