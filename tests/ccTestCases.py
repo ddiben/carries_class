@@ -36,8 +36,8 @@ class ccIntegratedTestCase(StaticLiveServerTestCase):
         super().setUpClass()
 
         options = webdriver.ChromeOptions()
-        #options.add_argument('headless')
-        options.add_argument('window-size=980x980')
+        options.add_argument('headless')
+        options.add_argument('window-size=986x986')
         
         cls.selenium = webdriver.Chrome('/usr/local/bin/chromedriver', chrome_options=options)
         cls.selenium.implicitly_wait(5)
