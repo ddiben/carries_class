@@ -34,7 +34,6 @@ class LinksViewTest(ccTestCase):
         self.assertTrue(self.queryset_contains(link4, links))
     
         
-    # deleted links shouldn't show up
     def test_delete_link(self):
         self.login('carriespassword')
         

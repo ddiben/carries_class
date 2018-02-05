@@ -10,7 +10,10 @@ from cc.models import MonthlyPosts
 class HomepageViewTest(ccTestCase):
         
     def test_links_of_navbar(self):
-        self.assertTrue(False)
+        self.login('parentpassword')
+        for page in ['math', 'parents', 'bio']:
+            # review how to do this
+            pass
         
 # model
 class MonthlyPostsTest(ccTestCase):

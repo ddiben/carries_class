@@ -210,6 +210,7 @@ class IntegratedTest(ccIntegratedTestCase):
         self.scan_page_for(["test multiple uploads"], booli=False)
 
         # possibly do a quick check through the file system to see if there are any empty images or directories left over?
+        # - but it is only really teseting a functionality that is necessary when I run it locally...
         
     def test_logout(self):
         

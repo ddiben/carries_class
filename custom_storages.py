@@ -7,17 +7,22 @@ from storages.backends.s3boto3 import S3Boto3Storage
 import os
 import tempfile
 
+""" This code and the approach to saving static files and media files to an s3 bucket are from this tutorial...
+ 
+    URL HERE
+"""
+
 class StaticStorage(S3Boto3Storage):
     location = settings.STATICFILES_LOCATION
 
 class MediaStorage(S3Boto3Storage):
     """
-    Took this from the github thread referenced below...
+    THIS CODE IS TAKEN FROM THE GITHUB LINK REFERENCED BELOW TO FIX BUGGY IMAGEKIT-DJANGO-STORAGES INTERACTION
     
-    This is our custom version of S3Boto3Storage that fixes a bug in boto3 where the passed in file is closed upon upload.
+    'This is our custom version of S3Boto3Storage that fixes a bug in boto3 where the passed in file is closed upon upload.
 
     https://github.com/boto/boto3/issues/929
-    https://github.com/matthewwithanm/django-imagekit/issues/391
+    https://github.com/matthewwithanm/django-imagekit/issues/391'
     """
     location = settings.MEDIAFILES_LOCATION
     
