@@ -1,2 +1,10 @@
 htmlcov/*
 __pycache__
+cc3site/settings_loc.py
+cc3site/settings_stor.py
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+.ebextensions
