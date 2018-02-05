@@ -30,7 +30,7 @@ class Photo(models.Model):
     height = models.IntegerField(default=0)
     
     album = models.ForeignKey('album', on_delete=models.CASCADE)
-    slug = models.SlugField(max_length=70, default=uuid.uuid4, editable=False) 
+    slug = models.SlugField(max_length=70, default=uuid.uuid4, editable=False) # is it possible to remove this??
     
     image = models.ImageField(upload_to="images", height_field='height', width_field='width')
     thumb = ImageSpecField(source='image', processors=[ResizeToFill(250, 250)]) # these are all stored in  'media/CACHE/...'

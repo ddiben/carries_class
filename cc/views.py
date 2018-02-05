@@ -153,3 +153,6 @@ def verifyUser(request):
         form = LoginForm()
     
     return render(request, 'cc/login.html', {'form': form})
+
+def content_not_ready(request):
+    return render(request, 'cc/content_not_ready.html')
