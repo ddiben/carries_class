@@ -12,7 +12,11 @@ class AlbumForm(forms.Form):
         max_length=120)
                               
     albumImage = forms.FileField()
-    date = forms.DateField(widget=forms.DateInput(attrs={'class': 'album-date-form', 'placeholder': 'date as: "YYYY-MM-DD"'}))
+    date = forms.DateField(widget=forms.DateInput(attrs={
+        'class': 'album-date-form', 
+        'autocomplete': 'off',
+        'placeholder': 'date as: "YYYY-MM-DD"', 
+        }))
     # possibly change this into a calendar picker like the admin has. 
     
     photos = forms.fields.FileField(widget=forms.ClearableFileInput(attrs={'class': 'photo-upload-form','multiple':True}))
