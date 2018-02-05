@@ -1,0 +1,766 @@
+* {
+	margin: 0;
+	padding: 0;
+	z-index: 0;
+}
+
+/* BASE */
+body {
+	background: #333;
+}
+
+@media only screen and (max-width: 960px) {
+	.site-body {
+		font-size: 100vw;
+		margin-left: 0;
+		margin-right: 0;
+		padding-left: 1.5%;
+		padding-right: 1.5%;
+		padding-top: 1%;
+		padding-bottom: 1%;
+	}
+}
+
+@media only screen and (min-width: 960px) {
+	.site-body {
+		font-size: 960px;
+		padding: 960px;
+		margin-left: auto;
+		margin-right: auto;
+		
+		padding-left: 1.5%;
+		padding-right: 1.5%;
+		padding-top: 10px;
+		padding-bottom: 10px;
+	}
+}
+
+.site-body {
+	background-color: #333;
+	
+	max-width: 924px; /* a little smaller because of some padding interaction that delays the size adjustment of other elements */
+	
+}
+
+.upper-wrapper {
+	display: flex;
+	flex-direction: column;
+	margin: 0px;
+}
+
+	.header-and-image {
+		display: flex;
+		flex-direction: row;
+	}
+
+		.header-image-gap {
+			width: auto;
+		}
+
+		.header-welcome {
+			display: flex;
+			align-content: flex-end;
+			width: 80%;
+			color: darkslateblue;
+			text-align: left;
+			vertical-align: text-bottom;
+			font-size: 13%;
+			font-family: 'Lobster', cursive;
+			
+			position: relative;
+		}
+
+			#header-text {
+				position: absolute;
+				bottom: 0;
+				line-height: .785em;
+			}
+
+		.page-image {
+			width: 20%;
+			height: 15vw;
+			max-height: 144px;
+			background-color: cornflowerblue;
+		}
+
+	/* navbar */
+
+	.navbar {
+		background: green;
+		margin-bottom: 1%;
+		margin-top: 1%;
+	}
+
+		.navbar-layout {
+			width: 100%;
+		
+			display: flex;
+			flex-wrap: nowrap;
+			
+			background: blue;
+			margin: 0;
+		}
+
+			.navitem {
+				display: flex;
+				flex-grow: 1;
+				justify-content: center;
+				align-items: center;
+				text-align: center;
+				height: 100%;
+				width: 8%;
+				padding-left: 3%;
+				padding-right: 3%;
+				font-family: 'Lobster', cursive;
+				font-size: 4%;
+				
+				background-color: #333;
+				transition: background-color .5s linear;
+				
+			}
+				.navitem:hover {
+					background-color: cornflowerblue ;
+				}
+
+				.anchor {
+					display: block;
+					color: whitesmoke;
+					text-decoration: none;
+				}
+
+				.active {
+					background-color: cornflowerblue;
+				}
+
+	.navgap-left {
+		width: 10%;
+		background-color: #333;
+	}
+
+	.navgap-right {
+		width: 10%;
+		background-color: #333;
+	}		
+
+.lower-wrapper {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+}
+
+#logout-float {
+	position: fixed;
+	bottom: 1.5%;
+	right: 0;
+	font-size: 2.6%;
+}
+
+.maincontent {
+	width: 100%;
+}
+
+	#lowest-banner-image {
+		margin-top: 1%;
+		background-color: skyblue;
+		width: 100%;
+		height: 15vw;
+		max-height: 144px;
+	}
+  
+		/* HOME */     /* Clean this up! */
+
+		#monthly-post {
+			color: black;
+			padding: 2%;
+			background: #5B5B5B;
+		}
+
+			.monthly-header {
+				margin-bottom: 2%;
+				font-size: 4%;
+				font-family: 'Lobster', cursive;
+				color: #0F0F0F;
+				line-height: .75em;
+			}
+
+			.monthly-text {
+				font-size: 2%;
+			}
+
+		#monthly-post-form-div {
+			color: black;
+			padding: 1%;
+			background: #5B5B5B;
+		}
+
+
+		.monthly-post-form {
+			display: flex;
+			flex-direction: column;
+			background: #5B5B5B;
+		}
+
+		#monthly-header-form {
+			background: #5B5B5B;
+			border: none;
+			margin-bottom: .5%;
+			overflow: none;
+		}
+
+		#monthly-text-form {
+			background: #5B5B5B;
+			border: none;
+			resize: none;
+			font-family: Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", "serif";
+		}
+
+		.monthly-post-button-wrapper {
+			display: flex;
+			flex-direction: row;
+			justify-content: flex-end;
+
+			margin-top: 1.5%;
+
+			font-size: 0;
+		}
+
+			.monthly-post-form-save {
+				box-sizing: border-box;
+				padding-left: 2vmin;
+				padding-right: 2vmin;
+				font-size: 2.65vmin;
+				color: whitesmoke;
+				border-radius: 5px;
+				font-family: 'Lobster', cursive;
+				background: #1E1E1E;
+
+				margin-right: 1.5%;
+				border-color: #1E1E1E;
+			}
+
+			.monthly-post-form-new {
+				box-sizing: border-box;
+				padding-left: 2vmin;
+				padding-right: 2vmin;
+				font-size: 2.65vmin;
+				color: whitesmoke;
+				border-radius: 5px;
+				font-family: 'Lobster', cursive;
+				background: #1E1E1E;
+
+				border-color: #1E1E1E;
+			}
+
+
+
+
+		#homework {
+			font-style: 'Lobster', cursive;
+			background-color: #5B5B5B;
+			padding: 2%;
+			margin-top: 1%;
+		}
+			#homework-header {
+				font-family: 'Lobster', cursive;
+				font-size: 4%;
+				margin-bottom: 1%;
+			}
+
+			#calendar {
+				font-family: 'Permanent Marker';
+				font-size: 2%;
+				height: 100%;
+			}
+				.calendarEvents {
+					font-size: 115%;
+				}
+
+				.fc button {
+					display: block;
+					background: cornflowerblue;
+				}
+
+				.fc-icon-my-previous:after {
+					content: "\02039";
+					font-weight: bold;
+					font-size: 200%;
+					top: -7%;
+					color: black;
+				}
+
+				.fc-icon-my-next:after {
+					content: "\0203A";
+					font-weight: bold;
+					font-size: 200%;
+					top: -7%;
+					color: black;
+				}
+
+				.fc h2 { /* this the title of the calendar */
+					margin: 0;
+					font-size: 235%;
+					line-height: 1em;
+					background: none;
+				}
+
+					.fc .fc-toolbar > * > button ~ h2 {  /* all of this fixes the centering issues with the header-title */
+							margin: 0 .75em;
+					}
+					.fc .fc-toolbar > * > h2 ~ button {
+							margin-left: 0;
+					}
+					.fc .fc-toolbar > * > h2:first-child {
+							margin-right: .75em;
+					}
+					.fc .fc-toolbar > * > h2:last-child {
+							margin-right: 0;
+					}
+
+				.fc-widget-header { /* this is the day name row */
+					background: cornflowerblue;
+				}
+
+				.fc td {  /* these are the date numbers */
+					font-size: 105%;
+					line-height: 1em;
+				}
+
+				.fc-today {
+					border-top: white;
+					opacity: .99;
+					border-top-width: 1px;
+					background-color: #4A5467 !important;
+				}
+
+.hover-text-container {
+	display: flex;
+	flex-direction: column;
+	width: 20%;
+	height:auto;
+	background:black;
+	color:white;
+	position:absolute;
+	z-index:10001;
+	overflow: none;
+	font-family: 'Permanent Marker';
+	padding: .4%;
+	border-radius: .5vw;
+
+}
+
+.hover-text-title {
+	display: inline-block;
+	text-align: center;
+	background: cornflowerblue;
+	height: 90%;
+	color: white;
+	font-size: 100%;
+	line-height: 1em;
+	margin-bottom: 1.3%;
+	border-radius: .25vw;
+}
+
+.hover-text-description {
+	display: inline-block;
+	text-align: left;
+	height: 100%;
+	overflow: none;
+	color: white;
+	line-height: 93%;
+	font-size: 80%;
+	padding: 2%;
+}
+
+
+/* Bio */
+
+/* Parents */
+
+/* LINKS */
+
+.link-container {
+	background: #5B5B5B;
+	padding: 1%;
+	font-size: 4%;
+	padding-bottom: 0;
+	
+	display: flex;
+	flex-direction: row;
+	
+}
+
+	.link-object {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		
+		width: 100%;
+	}
+
+		.link-information {
+			display: flex;
+			flex-direction: row;
+			
+			justify-content: space-between;
+			
+			border: thick;
+			border-color: black;
+			
+			margin-bottom: 1%;
+			
+			background-color: #5B5B5B;
+			
+			text-decoration: none;
+			
+		}
+
+			.link-parent{
+				display: flex;
+				flex-direction: column;
+				
+				background: cornflowerblue;
+				
+				padding-left: 1%;
+				padding-bottom: 1%;
+				max-width: 100%;
+			}
+
+			.link-fields-wrapper {
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				
+				width: 100%;
+				
+			}
+
+				.link-title {
+					color: white;
+					text-decoration: none;
+
+					font-size: 100%;
+					font-family: "Gill Sans", "Gill Sans MT", "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, "sans-serif";
+
+					margin-bottom: 1%;
+
+					width: 99.7%;
+				}
+
+				.link-description {
+					font-size: 50%;
+					font-family: Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", "serif";
+
+					width: 100%
+						
+				}
+
+				.link-url {
+					font-size: 50%;
+					font-family: Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", "serif";
+
+					width: 99.7%;
+					
+					margin-top: 1%;
+					
+					background: #5B5B5B;
+					border: none;
+				}
+
+.link-title-form {
+	background: #5B5B5B;
+	border: none;
+	margin-bottom: .5%;
+	overflow: none;
+
+}
+
+.link-description-form {
+	background: #5B5B5B;
+	border: none;
+	resize: none;
+}
+
+			.link-button-wrapper {
+				display: flex;
+				flex-direction: column;
+				justify-content: flex-end;
+				
+				margin-left: 3%;
+				margin-right: 1.5%;
+			}
+
+				.link-button-save {
+
+				}
+
+				.link-button-new {
+					margin-top: 10%;
+				}
+
+				.link-button-delete {
+					margin-bottom: 10%;
+				}
+
+
+
+/* PHOTOS */
+
+.album-container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	
+	padding-top: 1%;
+	padding-bottom: 1%;
+	padding-left: 1%;
+	
+	background: #5B5B5B;
+	
+}
+
+.card {
+    /* Add shadows to create the "card" effect */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+
+.album-card {
+	font-size: 4%;
+	padding: 1%;
+	width: 30.3%;
+	color: whitesmoke;
+	
+	background: #1E1E1E;
+	margin-right: 1%;
+	
+	position: relative;
+}
+
+.album-form-delete {
+	position: absolute;
+	top: 1.5%;
+	right: 0;
+	font-size: 2.6%;
+	z-index: 1000;
+}
+
+.album-delete {
+	z-index: 1000;
+}
+
+.album-anchor {
+	text-decoration: none;
+	color: white;
+}
+
+.album-image {
+	max-width:100%;
+	height: auto;
+	float: right; /* Not totally sure why, but this is important to avoid weird padding on bottom of photo-card */ 
+}
+
+.album-information {
+	margin-top:-3%;
+}
+
+.album-title {
+	font-size: 90%;
+	text-align: center;
+}
+
+.album-description {
+	font-size: 70%;
+	text-align: left;
+	margin-top:-3%;
+}
+
+.photo-container {
+	background: #5B5B5B;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	
+	padding-top: .6%;
+	padding-left: .6%;
+}
+
+.photo-card {
+	background: #1E1E1E;
+	padding: .5%;
+	margin-right: .6%;
+	margin-bottom: .6%;
+	width: 15.071%;
+	font-size: 4%;
+	
+	align-content: center;
+	justify-content: center;
+	overflow: hidden;
+	
+	display: block;
+	
+	max-height: 100%;
+}
+
+.new-album-container {
+	display: flex;
+	justify-content: center;
+	background: #5B5B5B;
+	padding: 1%;
+}
+
+.new-album-form {
+	display: flex;
+	flex-direction: column;
+	font-size: 4%;
+	
+	background: #1E1E1E;
+	padding: 1%;
+	
+	color: whitesmoke;
+}
+
+.album-title-form {
+	
+	color: darkslategray;
+	
+}
+
+
+.create-album-button {
+	font-size: 50%;
+	background: cornflowerblue;
+}
+
+
+/* LOGIN */ 
+
+.login-body {
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-attachment: fixed;
+	background-size: cover;
+	margin: 0px;
+}
+
+.login-layout {
+	display: grid;
+	grid-template-columns: repeat(100, 1fr);
+	grid-template-rows: repeat(100, 1vh);
+}
+
+	.login-wrapper {
+		grid-column: 59 / 82;
+		grid-row: 29 / 58;
+		display: flex;
+		flex-direction: column;
+		align-content: space-around;
+		background-color: #100F11;
+		border-radius: 2vmin;
+	}
+
+		.login-header {
+			text-align: center;
+			font-family: 'Lobster', cursive;
+			font-size: 5vmin;
+			color: whitesmoke;
+			flex: 20;
+			padding: .5vw;
+		}
+
+		.login-form {
+			display: flex;
+			flex-wrap: wrap;
+			flex: 80;
+			align-items: center;
+			justify-content: center;
+			max-height: 100%;
+			padding-bottom: 2.5vmin;
+		}
+
+			.login-input-label {
+				font-family: 'Lobster', cursive;
+				color: whitesmoke;
+				font-size: 3vmin;
+			}
+
+			.login-input {
+				box-sizing: border-box;
+				width: 45vmin;
+				max-width: 96%;
+				font-size: 2.5vmin;
+				border-radius: 3px;
+				margin-left: 2vmin;
+				margin-right: 2vmin;
+				margin-bottom: 1vmin;
+			}
+
+				::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+				  color: darkslategray;
+				  text-align: center;
+				  opacity: .5;
+				  transition: opacity 500ms ease-in-out;
+				}
+					:focus::-webkit-input-placeholder {
+					opacity: .0;
+					}
+				:-ms-input-placeholder { /* IE 10+ */
+				  color: darkslategray;
+				  opacity: .5;
+				}
+					:focus:-ms-input-placeholder {
+						opacity: 0;
+					}
+				::-moz-placeholder { /* Firefox 19+ */
+				  color: darkslategray;
+				  opacity: .5;
+				}
+					:focus::-moz-placeholder {
+						opacity: .0;
+					}
+				:-moz-placeholder { /* Firefox 18- */
+				  color: darkslategray;
+				  opacity: .5;
+				}
+					:focus:-moz-placeholder {
+						opacity: 0;
+					}
+
+			.login-submit {
+				box-sizing: border-box;
+				padding-left: 2vmin;
+				padding-right: 2vmin;
+				font-size: 2.65vmin;
+				color: whitesmoke;
+				border-radius: 5px;
+				font-family: 'Lobster', cursive;
+				background: #BADAF2;
+			}
+
+
+
+
+/* Content_not_ready */
+
+.not-ready-message {
+	font-size: 6%;
+	color: black;
+	background: #5B5B5B;
+	padding: 1%;
+	
+}
+
+
+
+
+
+
+
+
+
+
