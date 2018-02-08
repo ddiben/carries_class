@@ -344,6 +344,7 @@ body {
 	position:absolute;
 	z-index:10001;
 	overflow: none;
+
 	font-family: "Gill Sans", "Gill Sans MT", "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, "sans-serif";
 
 	padding: .4%;
