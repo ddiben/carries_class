@@ -8,3 +8,6 @@ cc3site/settings_stor.py
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
 .ebextensions
+
+# secrets...
+cc3site/.secrets

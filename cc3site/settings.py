@@ -135,8 +135,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Amazon Web Services; hooking up to the bucket
 AWS_STORAGE_BUCKET_NAME = 'cc3-live' 
 AWS_S3_REGION_NAME = 'us-west-2'
-AWS_ACCESS_KEY_ID = 'AKIAJKBS5XGGNSNEQ2BQ'
-AWS_SECRET_ACCESS_KEY = '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'
+
 
 # Tell Django-storages the domain to use to refer to static files
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.us-west-2.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
